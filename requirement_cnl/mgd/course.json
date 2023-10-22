@@ -1,0 +1,176 @@
+{
+    "class": "go.GraphLinksModel",
+    "linkKeyProperty": "id",
+    "nodeDataArray": [
+        {
+            "category": "ClassNode",
+            "name": "院长",
+            "properties": [
+                {
+                    "name": "院长编号",
+                    "visibility": "public",
+                    "type": "String"
+                },
+                {
+                    "name": "姓名",
+                    "visibility": "public",
+                    "type": "String"
+                },
+                {
+                    "name": "职称",
+                    "visibility": "public",
+                    "type": "String"
+                }
+            ],
+            "methods": [],
+            "key": "院长",
+            "text": "院长",
+            "description": ""
+        },
+        {
+            "category": "ClassNode",
+            "name": "学院",
+            "properties": [
+                {
+                    "name": "学院编号",
+                    "visibility": "public",
+                    "type": "String"
+                },
+                {
+                    "name": "名称",
+                    "visibility": "public",
+                    "type": "String"
+                },
+                {
+                    "name": "联系电话",
+                    "visibility": "public",
+                    "type": "String"
+                }
+            ],
+            "methods": [],
+            "key": "学院",
+            "text": "学院",
+            "description": ""
+        },
+        {
+            "category": "ClassNode",
+            "name": "班级",
+            "properties": [
+                {
+                    "name": "班级编号",
+                    "visibility": "public",
+                    "type": "String"
+                },
+                {
+                    "name": "班级名称",
+                    "visibility": "public",
+                    "type": "String"
+                }
+            ],
+            "methods": [],
+            "key": "班级",
+            "text": "班级",
+            "description": ""
+        },
+        {
+            "category": "ClassNode",
+            "name": "学生",
+            "properties": [
+                {
+                    "name": "学生编号",
+                    "visibility": "public",
+                    "type": "String"
+                },
+                {
+                    "name": "姓名",
+                    "visibility": "public",
+                    "type": "String"
+                },
+                {
+                    "name": "联系方式",
+                    "visibility": "public",
+                    "type": "String"
+                }
+            ],
+            "methods": [],
+            "key": "学生",
+            "text": "学生",
+            "description": ""
+        },
+        {
+            "category": "ClassNode",
+            "name": "课程",
+            "properties": [
+                {
+                    "name": "课程编号",
+                    "visibility": "public",
+                    "type": "String"
+                },
+                {
+                    "name": "课程名称",
+                    "visibility": "public",
+                    "type": "String"
+                },
+                {
+                    "name": "教师姓名",
+                    "visibility": "public",
+                    "type": "String"
+                }
+            ],
+            "methods": [],
+            "key": "课程",
+            "text": "课程",
+            "description": ""
+        }
+    ],
+    "linkDataArray": [
+        {
+            "category": "Association",
+            "text": "只有",
+            "fromText": "1",
+            "toText": "1",
+            "from": "学院",
+            "to": "院长"
+        },
+        {
+            "category": "Association",
+            "text": "属于",
+            "fromText": "1",
+            "toText": "1",
+            "from": "院长",
+            "to": "学院"
+        },
+        {
+            "category": "Association",
+            "text": "有",
+            "fromText": "1",
+            "toText": "*",
+            "from": "班级",
+            "to": "学生"
+        },
+        {
+            "category": "Association",
+            "text": "属于",
+            "fromText": "1",
+            "toText": "1",
+            "from": "学生",
+            "to": "班级"
+        },
+        {
+            "category": "Association",
+            "text": "选择",
+            "fromText": "1",
+            "toText": "*",
+            "from": "学生",
+            "to": "课程"
+        },
+        {
+            "category": "Association",
+            "text": "选择",
+            "fromText": "*",
+            "toText": "1",
+            "from": "学生",
+            "to": "课程"
+        }
+    ]
+}
