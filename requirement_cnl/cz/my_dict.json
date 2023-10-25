@@ -1,1 +1,119 @@
-"{\n  \"class\": \"go.GraphLinksModel\",\n  \"modelData\": {\n    \"DrawingBoard\": {\n      \"width\": 9999,\n      \"height\": 9999\n    }\n  },\n  \"nodeDataArray\": [\n    {\n      \"key\": \"院长\",\n      \"category\": \"ClassDiagram\",\n      \"name\": \"class\",\n      \"properties\": [\n        {\n          \"name\": \"职称\"\n        },\n        {\n          \"name\": \"院长编号\"\n        },\n        {\n          \"name\": \"姓名\"\n        }\n      ],\n      \"text\": \"院长\"\n    },\n    {\n      \"key\": \"学院\",\n      \"category\": \"ClassDiagram\",\n      \"name\": \"class\",\n      \"properties\": [\n        {\n          \"name\": \"联系电话\"\n        },\n        {\n          \"name\": \"学院编号\"\n        },\n        {\n          \"name\": \"名称\"\n        }\n      ],\n      \"text\": \"学院\"\n    },\n    {\n      \"key\": \"班级\",\n      \"category\": \"ClassDiagram\",\n      \"name\": \"class\",\n      \"properties\": [\n        {\n          \"name\": \"名称\"\n        },\n        {\n          \"name\": \"班级编号\"\n        }\n      ],\n      \"text\": \"班级\"\n    },\n    {\n      \"key\": \"学生\",\n      \"category\": \"ClassDiagram\",\n      \"name\": \"class\",\n      \"properties\": [\n        {\n          \"name\": \"联系方式\"\n        },\n        {\n          \"name\": \"学生编号\"\n        },\n        {\n          \"name\": \"姓名\"\n        }\n      ],\n      \"text\": \"学生\"\n    },\n    {\n      \"key\": \"课程\",\n      \"category\": \"ClassDiagram\",\n      \"name\": \"class\",\n      \"properties\": [\n        {\n          \"name\": \"教师姓名\"\n        },\n        {\n          \"name\": \"课程编号\"\n        },\n        {\n          \"name\": \"课程名称\"\n        }\n      ],\n      \"text\": \"课程\"\n    }\n  ],\n  \"linkDataArray\": [\n    {\n      \"category\": \"Association_NoArrow\",\n      \"fromText\": \"1\",\n      \"toText\": \"1\",\n      \"nodeText\": \"\",\n      \"from\": \"院长\",\n      \"to\": \"学院\"\n    },\n    {\n      \"category\": \"Association_NoArrow\",\n      \"fromText\": \"*\",\n      \"toText\": \"1\",\n      \"nodeText\": \"\",\n      \"from\": \"学生\",\n      \"to\": \"班级\"\n    },\n    {\n      \"category\": \"Association_NoArrow\",\n      \"fromText\": \"*\",\n      \"toText\": \"*\",\n      \"nodeText\": \"\",\n      \"from\": \"学生\",\n      \"to\": \"课程\"\n    }\n  ]\n}"
+{
+  "class": "go.GraphLinksModel",
+  "modelData": {
+    "DrawingBoard": {
+      "width": 9999,
+      "height": 9999
+    }
+  },
+  "nodeDataArray": [
+    {
+      "key": "闄㈤暱",
+      "category": "ClassDiagram",
+      "name": "class",
+      "properties": [
+        {
+          "name": "鑱岀О"
+        },
+        {
+          "name": "闄㈤暱缂栧彿"
+        },
+        {
+          "name": "濮撳悕"
+        }
+      ],
+      "text": "闄㈤暱"
+    },
+    {
+      "key": "瀛﹂櫌",
+      "category": "ClassDiagram",
+      "name": "class",
+      "properties": [
+        {
+          "name": "鑱旂郴鐢佃瘽"
+        },
+        {
+          "name": "瀛﹂櫌缂栧彿"
+        },
+        {
+          "name": "鍚嶇О"
+        }
+      ],
+      "text": "瀛﹂櫌"
+    },
+    {
+      "key": "鐝骇",
+      "category": "ClassDiagram",
+      "name": "class",
+      "properties": [
+        {
+          "name": "鍚嶇О"
+        },
+        {
+          "name": "鐝骇缂栧彿"
+        }
+      ],
+      "text": "鐝骇"
+    },
+    {
+      "key": "瀛︾敓",
+      "category": "ClassDiagram",
+      "name": "class",
+      "properties": [
+        {
+          "name": "鑱旂郴鏂瑰紡"
+        },
+        {
+          "name": "瀛︾敓缂栧彿"
+        },
+        {
+          "name": "濮撳悕"
+        }
+      ],
+      "text": "瀛︾敓"
+    },
+    {
+      "key": "璇剧▼",
+      "category": "ClassDiagram",
+      "name": "class",
+      "properties": [
+        {
+          "name": "鏁欏笀濮撳悕"
+        },
+        {
+          "name": "璇剧▼缂栧彿"
+        },
+        {
+          "name": "璇剧▼鍚嶇О"
+        }
+      ],
+      "text": "璇剧▼"
+    }
+  ],
+  "linkDataArray": [
+    {
+      "category": "Association_NoArrow",
+      "fromText": "1",
+      "toText": "1",
+      "nodeText": "",
+      "from": "闄㈤暱",
+      "to": "瀛﹂櫌"
+    },
+    {
+      "category": "Association_NoArrow",
+      "fromText": "*",
+      "toText": "1",
+      "nodeText": "",
+      "from": "瀛︾敓",
+      "to": "鐝骇"
+    },
+    {
+      "category": "Association_NoArrow",
+      "fromText": "*",
+      "toText": "*",
+      "nodeText": "",
+      "from": "瀛︾敓",
+      "to": "璇剧▼"
+    }
+  ]
+}
