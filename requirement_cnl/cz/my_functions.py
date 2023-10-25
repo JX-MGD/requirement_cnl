@@ -1,8 +1,9 @@
 # Class Have Attr
-def have(root_position,dependency_list,have_position,root_pos,root_mean):
+def have(root_position, dependency_list, have_position, root_pos, root_mean):
     # 初始化分类列表
     Class_list = []
     Attribute_list = []
+    node_list = []
     # 判断根节点是否为 "有"
     if have_position:
         # 遍历依存关系列表，判断子列表中的数字与 root_position_in_sublist 是否相等
@@ -11,26 +12,44 @@ def have(root_position,dependency_list,have_position,root_pos,root_mean):
                 # 判断子列表中的数字与 root_position_in_sublist 是否相等
                 if dependency[1] == root_position:
                     # 判断是否为 "top" 或 "dobj"
-                    if dependency[2] == 'top' or dependency[2] == 'nsubj' or dependency[2] == 'dep' or dependency[2] == 'root':
-                        if root_pos == 've':  # 若top前面有nn，则合并单词
+                    if dependency[2] == 'top' or dependency[2] == 'nsubj' or dependency[2] == 'dep' or dependency[
+                        2] == 'root':
+                        if root_pos == 've' or root_mean=='属于' or root_mean=='选择':  # 若top前面有nn，则合并单词
                             composition = dependency[0]
                             for sublist in dependency_list:
                                 for dep in sublist:
                                     if dep[2] == 'nn' and sublist.index(dep) + 1 == sublist.index(dependency):
                                         composition = dep[0] + dependency[0]
                                 Class_list.append(composition)
+                            continue
 
                         elif root_pos == 'vv':
                             Class_list.append(root_mean)
 
-
                         # 若dobj前面有nn，则合并单词
                     elif dependency[2] == 'dobj':
+                        # 获取当前元素所在位置
+                        index = sublist.index(dependency)
                         composition = dependency[0]
+                        # 寻找唯一键
+                        if sublist[index - 1][0] == "特定" or sublist[index - 2][0] == "特定" or \
+                                sublist[index - 1][0] == "独特" or sublist[index - 2][
+                            0] == "独特" or sublist[index - 1][0] == "唯一" or sublist[index - 2][
+                            0] == "唯一":
+                            composition = "unique:" + composition
+                        #寻找dobj前面的组合名词
                         for sublist in dependency_list:
                             for dep in sublist:
                                 if dep[2] == 'nn' and sublist.index(dep) + 1 == sublist.index(dependency):
+                                    # 获取当前元素所在位置
+                                    index = sublist.index(dep)
                                     composition = dep[0] + dependency[0]
+                                    # 寻找唯一键
+                                    if sublist[index - 1][0] == "特定" or sublist[index - 2][0] == "特定" or \
+                                            sublist[index - 1][0] == "独特" or sublist[index - 2][
+                                        0] == "独特" or sublist[index - 1][0] == "唯一" or sublist[index - 2][
+                                        0] == "唯一":
+                                        composition = "unique:" + composition
 
                         Attribute_list.append(composition)
 
@@ -44,24 +63,44 @@ def have(root_position,dependency_list,have_position,root_pos,root_mean):
                     # 遍历子列表中的所有依存关系词汇，检查它们的位置是否与当前位置相同
                     for dep in sublist:
                         # 判断是否为 "top" 或 "dobj" 并且位置与当前位置相同
-                        if dep[2] in ['top', 'nsubj','dep','dobj'] and dep_index == sublist.index(dep) + 1:
+                        if dep[2] in ['top', 'nsubj', 'dep', 'dobj'] and dep_index == sublist.index(dep) + 1:
                             # 根据依存关系是 "top" 还是 "dobj" 分别加入到相应的列表中
-                            if dep[2]=='top' or dep[2]=='nsubj':
+                            if dep[2] == 'top' or dep[2] == 'nsubj':
                                 composition = dependency[0]
                                 for sub in dependency_list:
                                     for dep in sublist:
                                         if dep[2] == 'nn' and sublist.index(dep) + 1 == sublist.index(dependency):
                                             composition = dep[0] + dependency[0]
+
 
                                 Class_list.append(composition)
 
 
-                            elif dep[2]=='dobj':
+                            elif dep[2] == 'dobj':
+                                # 获取当前元素所在位置
+                                index = sublist.index(dependency)
+                                # 寻找唯一键
+                                if sublist[index - 1][0] == "特定" or sublist[index - 2][0] == "特定" or \
+                                        sublist[index - 1][0] == "独特" or sublist[index - 2][
+                                    0] == "独特" or sublist[index - 1][0] == "唯一" or sublist[index - 2][
+                                    0] == "唯一":
+                                    composition = "unique:" + composition
+
                                 composition = dependency[0]
                                 for sub in dependency_list:
+
                                     for dep in sublist:
                                         if dep[2] == 'nn' and sublist.index(dep) + 1 == sublist.index(dependency):
+                                            # 获取当前元素所在位置
+                                            index = sublist.index(dep)
                                             composition = dep[0] + dependency[0]
+                                            # 寻找唯一键
+                                            if sublist[index - 1][0] == "特定" or sublist[index - 2][0] == "特定" or \
+                                                    sublist[index - 1][0] == "独特" or sublist[index - 2][
+                                                0] == "独特" or sublist[index - 1][0] == "唯一" or sublist[index - 2][
+                                                0] == "唯一":
+                                                composition = "unique:" + composition
+
                                 Attribute_list.append(composition)
 
     elif root_pos == 'vv':
@@ -71,18 +110,24 @@ def have(root_position,dependency_list,have_position,root_pos,root_mean):
         print("根节点错误，不执行后续操作")
     if Class_list:
         print("分类为 'Class' 的词汇：", Class_list)
+        node_list.append(Class_list)
     else:
         print("没有分类为 'Class' 的词汇")
 
     if Attribute_list:
         print("分类为 'Attribute' 的词汇：", Attribute_list)
+        node_list.append(Attribute_list)
     else:
         print("没有分类为 'Attribute_list' 的词汇")
+    return node_list
+
+
 # Class Is SpecialClass
-def Is(root_position,dependency_list):
+def Is(root_position, dependency_list):
     # 初始化分类列表
     Class_list = []
     SpecialClass_list = []
+    link_list = []
     if dependency_list[0][root_position - 1][0] == '是':
         # 遍历依存关系列表，判断子列表中的数字与 root_position_in_sublist 是否相等
         for sublist in dependency_list:
@@ -145,19 +190,26 @@ def Is(root_position,dependency_list):
     # 输出分类结果
     if Class_list:
         print("分类为 'Class' 的词汇：", Class_list)
+        link_list.append(Class_list)
     else:
         print("没有分类为 'Class' 的词汇")
-
+    link_list.append('')
     if SpecialClass_list:
         print("分类为 'SpecialClass' 的词汇：", SpecialClass_list)
+        link_list.append(SpecialClass_list)
     else:
         print("没有分类为 'SpecialClass_list' 的词汇")
+    link_list.append('Generalize')
+    # 返回node列表
+    return link_list
+
 
 # FromClass Method ToClass
-def general(related_elements,root_position,dependency_list,root_mean):
+def general(related_elements, root_position, dependency_list, root_mean):
     # 初始化分类列表
     FromClass_list = []
     ToClass_list = []
+    link_list = []
     if related_elements == 'vv':
         # 遍历依存关系列表，判断子列表中的数字与 root_position_in_sublist 是否相等
         for sublist in dependency_list:
@@ -216,21 +268,30 @@ def general(related_elements,root_position,dependency_list,root_mean):
     else:
         print("根节点不是vv词性，不执行后续操作")
     # 输出分类结果
-    if FromClass_list:
-        print("分类为 'FromClass' 的词汇：", FromClass_list)
-    else:
-        print("没有分类为 'FromClass' 的词汇")
-    if root_mean:
-        print("方法为：", root_mean)
     if ToClass_list:
-        print("分类为 'ToClass' 的词汇：", ToClass_list)
+        print("分类为 'ToClass' 的词汇：", FromClass_list)
+        link_list.append(FromClass_list)
     else:
         print("没有分类为 'ToClass' 的词汇")
 
-def prep(prep_position,root_position,dependency_list):
+    if root_mean:
+        print("方法为：", root_mean)
+        link_list.append(root_mean)
+
+    if FromClass_list:
+        print("分类为 'FromClass' 的词汇：", ToClass_list)
+        link_list.append(ToClass_list)
+    else:
+        print("没有分类为 'FromClass' 的词汇")
+    link_list.append('null')
+    return link_list
+
+
+def prep(prep_position, root_position, dependency_list):
     # 初始化分类列表
     Class_list = []
     SpecialClass_list = []
+    node_list = []
     if dependency_list[0][root_position - 1][0] == '组成' or dependency_list[0][root_position - 1][0] == '标识':
         # 遍历依存关系列表，判断子列表中的数字与 root_position_in_sublist 是否相等
         for sublist in dependency_list:
@@ -295,10 +356,14 @@ def prep(prep_position,root_position,dependency_list):
     # 输出分类结果
     if Class_list:
         print("分类为 'Class' 的词汇：", Class_list)
+        node_list.append(Class_list)
+
     else:
         print("没有分类为 'Class' 的词汇")
 
     if SpecialClass_list:
         print("分类为 'Attribute' 的词汇：", SpecialClass_list)
+        node_list.append(SpecialClass_list)
     else:
         print("没有分类为 'Attribute' 的词汇")
+    return node_list
