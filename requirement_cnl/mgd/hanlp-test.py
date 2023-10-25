@@ -272,14 +272,14 @@ print("class_list_leng",class_list.__len__())
 
 # 构建JSON数据结构
 
-print("------------------------------")
+print("---------Class列表----------------")
 # 打印class_list
 for item in class_list:
     print(item.get_class_structure())
-print("------------------------------")
+print("-----------常规Class的Json-------------------")
 # 将列表转换为 JSON 数据格式
 json_data = tojson(class_list)
 print(json_data)
-print("------------------------------")
+print("-----------Gojs形式的Json-------------------")
 json_data= togojsjson(class_list, relationship_list)
 print(json_data)
