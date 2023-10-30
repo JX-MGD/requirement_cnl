@@ -16,7 +16,7 @@ def Quantifierprocessing(text, linkDataArray):
         manylist=[]
         for sentence in sentences:
             answer = model(sentence, target="Parsing")
-            print(answer)
+
             for sublist in answer[0]:
                 first_positions.append(sublist[0])
             # 检查是否所有值都存在于子列表中
@@ -46,6 +46,5 @@ def Quantifierprocessing(text, linkDataArray):
         if len(manylist)>0:
             linklist.append(manylist)
 
-    # print(numberlist)
-    # print(linkDataArray[0])
+
     return linkDataArray

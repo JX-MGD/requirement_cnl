@@ -36,12 +36,9 @@ def checkrelation(nodeDataArray_temporary, linkDataArray_temporary):
             nodeDataArray_pre.append(sublist)
     # 返回检测好后的linkDataArray和nodeDataArray
     checkProcess = []
-    print("******************WW")
-
     checkProcess.append(nodeDataArray_pre)
     checkProcess.append(linkDataArray_temporary)
-    print(nodeDataArray_pre)
-    print(linkDataArray_temporary)
+
     return checkProcess
 
 

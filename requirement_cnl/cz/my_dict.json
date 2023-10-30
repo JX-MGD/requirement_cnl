@@ -8,86 +8,86 @@
   },
   "nodeDataArray": [
     {
-      "key": "闄㈤暱",
+      "key": "院长",
       "category": "ClassDiagram",
-      "name": "闄㈤暱",
+      "name": "院长",
       "properties": [
         {
-          "name": "鑱岀О"
+          "name": "职称"
         },
         {
-          "name": "闄㈤暱缂栧彿"
+          "name": "院长编号"
         },
         {
-          "name": "濮撳悕"
+          "name": "姓名"
         }
       ],
-      "text": "闄㈤暱"
+      "text": "院长"
     },
     {
-      "key": "瀛﹂櫌",
+      "key": "学院",
       "category": "ClassDiagram",
-      "name": "瀛﹂櫌",
+      "name": "学院",
       "properties": [
         {
-          "name": "鑱旂郴鐢佃瘽"
+          "name": "联系电话"
         },
         {
-          "name": "瀛﹂櫌缂栧彿"
+          "name": "学院编号"
         },
         {
-          "name": "鍚嶇О"
+          "name": "名称"
         }
       ],
-      "text": "瀛﹂櫌"
+      "text": "学院"
     },
     {
-      "key": "鐝骇",
+      "key": "班级",
       "category": "ClassDiagram",
-      "name": "鐝骇",
+      "name": "班级",
       "properties": [
         {
-          "name": "鍚嶇О"
+          "name": "名称"
         },
         {
-          "name": "鐝骇缂栧彿"
+          "name": "班级编号"
         }
       ],
-      "text": "鐝骇"
+      "text": "班级"
     },
     {
-      "key": "瀛︾敓",
+      "key": "学生",
       "category": "ClassDiagram",
-      "name": "瀛︾敓",
+      "name": "学生",
       "properties": [
         {
-          "name": "鑱旂郴鏂瑰紡"
+          "name": "联系方式"
         },
         {
-          "name": "瀛︾敓缂栧彿"
+          "name": "学生编号"
         },
         {
-          "name": "濮撳悕"
+          "name": "姓名"
         }
       ],
-      "text": "瀛︾敓"
+      "text": "学生"
     },
     {
-      "key": "璇剧▼",
+      "key": "课程",
       "category": "ClassDiagram",
-      "name": "璇剧▼",
+      "name": "课程",
       "properties": [
         {
-          "name": "鏁欏笀濮撳悕"
+          "name": "教师姓名"
         },
         {
-          "name": "璇剧▼缂栧彿"
+          "name": "课程编号"
         },
         {
-          "name": "璇剧▼鍚嶇О"
+          "name": "课程名称"
         }
       ],
-      "text": "璇剧▼"
+      "text": "课程"
     }
   ],
   "linkDataArray": [
@@ -96,24 +96,24 @@
       "fromText": "1",
       "toText": "1",
       "nodeText": "",
-      "from": "闄㈤暱",
-      "to": "瀛﹂櫌"
+      "from": "院长",
+      "to": "学院"
     },
     {
       "category": "Association_NoArrow",
       "fromText": "*",
       "toText": "1",
       "nodeText": "",
-      "from": "瀛︾敓",
-      "to": "鐝骇"
+      "from": "学生",
+      "to": "班级"
     },
     {
       "category": "Association_NoArrow",
       "fromText": "*",
       "toText": "*",
       "nodeText": "",
-      "from": "瀛︾敓",
-      "to": "璇剧▼"
+      "from": "学生",
+      "to": "课程"
     }
   ]
 }
