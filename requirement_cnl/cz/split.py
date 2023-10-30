@@ -1,5 +1,5 @@
 import re
-
+# 需求按分号分句
 def split_sentences(text):
     # 使用正则表达式匹配标点符号来分句
     sentences = re.split(r'[;]', text)

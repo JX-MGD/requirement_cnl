@@ -20,7 +20,7 @@ def to(input_data1, input_data2):
         template_data = {
             "key": key_and_name,
             "category": "ClassDiagram",
-            "name": "class",
+            "name": key_and_name,
             "properties": properties,
             "text": key_and_name
         }
@@ -114,18 +114,3 @@ def to(input_data1, input_data2):
 
     return json_string
 
-# input_data1 = [
-#     {'key': '空间', 'name': '空间', 'properties': [{'name': '面积'}, {'name': '租金成本'}]},
-#     {'key': '卧室', 'name': '卧室', 'properties': [{'name': '床'}, {'name': '房间号'}]},
-#     {'key': '电视机', 'name': '电视机', 'properties': [{'name': '显示尺寸'}, {'name': '序列号'}]},
-#     {'key': '酒店', 'name': '酒店', 'properties': [{'name': '接待员'}]},
-#     {'key': '客户', 'name': '客户', 'properties': [{'name': '地址'}, {'name': '姓名'}, {'name': '姓氏'}]},
-#     {'key': '预订', 'name': '预订', 'properties': [{'name': '结束日期'}, {'name': '开始日期'}, {'name': '标识符'}]},
-#     {'key': '会议室', 'name': '会议室', 'properties': [{'name': '容量'}, {'name': '名称'}, {'name': '投影屏幕'}]}
-# ]
-# input_data2 = [
-#     {'from': '会议室', 'to': '空间', 'text': None, 'relationship': ''},
-#     {'from': '酒店卧室', 'to': '空间', 'text': None, 'relationship': ''},
-#     {'from': '接待员', 'to': '预订', 'text': '处理', 'relationship': ''}
-# ]
-# to(input_data1, input_data2)

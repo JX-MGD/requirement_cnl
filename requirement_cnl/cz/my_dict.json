@@ -10,7 +10,7 @@
     {
       "key": "院长",
       "category": "ClassDiagram",
-      "name": "class",
+      "name": "院长",
       "properties": [
         {
           "name": "职称"
@@ -27,7 +27,7 @@
     {
       "key": "学院",
       "category": "ClassDiagram",
-      "name": "class",
+      "name": "学院",
       "properties": [
         {
           "name": "联系电话"
@@ -44,7 +44,7 @@
     {
       "key": "班级",
       "category": "ClassDiagram",
-      "name": "class",
+      "name": "班级",
       "properties": [
         {
           "name": "名称"
@@ -58,7 +58,7 @@
     {
       "key": "学生",
       "category": "ClassDiagram",
-      "name": "class",
+      "name": "学生",
       "properties": [
         {
           "name": "联系方式"
@@ -75,7 +75,7 @@
     {
       "key": "课程",
       "category": "ClassDiagram",
-      "name": "class",
+      "name": "课程",
       "properties": [
         {
           "name": "教师姓名"

@@ -2,7 +2,7 @@ import my_functions
 import split
 from fastHan import FastHan
 
-
+# 处理量词(必须4个)
 def Quantifierprocessing(text, linkDataArray):
     sentences = split.split_sentences(text)
     model = FastHan()
