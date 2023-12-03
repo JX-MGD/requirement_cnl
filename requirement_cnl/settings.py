@@ -12,22 +12,31 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+# 项目根目录
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+# 快速开始文档
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
+# 项目的密钥：加密/解密用的
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-9c)q8qga_8-%_4-hcyn%bb4d9vjp52)sbak&)bpn=q6epx5y6q'
 
+# 是否调试模式
+# True: 调试模式，一般用于开发过程中
+# False: 非调试模式，一般用于生产环境
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# 被允许的域名或IP
+# * ：表示通配符，允许所有域名或IP访问，表示可以被其他任何电脑来访问（局域网）
+# 上线后可以指定其他那些服务器来访问我
 ALLOWED_HOSTS = []
 
 
+# 定义应用
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,8 +46,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 定义自己的应用
+    'mgd',
+    'cz',
+
 ]
 
+# 中间件
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -49,13 +64,16 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# 根路由
 ROOT_URLCONF = 'requirement_cnl.urls'
 
+
+
+# 模板
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,9 +86,11 @@ TEMPLATES = [
     },
 ]
 
+# WSGI目录
 WSGI_APPLICATION = 'requirement_cnl.wsgi.application'
 
 
+# 数据库
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -82,6 +102,7 @@ DATABASES = {
 }
 
 
+# 密码验证
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -100,24 +121,31 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+# 国际化
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-us' # en-us英语/zh-hans中文
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'UTC' # 时区
 
 USE_I18N = True
 
 USE_TZ = True
 
-
+# 静态文件（CSS , JavaScript , Images）
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
-
 STATIC_URL = 'static/'
 
+# 静态文件目录
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
+
+
+# 默认的主键字段类型
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

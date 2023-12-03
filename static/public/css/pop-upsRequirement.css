@@ -1,0 +1,355 @@
+#myButton {
+    position: absolute;  /* (这里也可以用absolute和fixed） */
+    right: 210px;
+    top: 89.5px;
+    z-index: 999;
+    width: 40px;
+    height: 20px;
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #000000;
+}
+.myOverviewDiv {
+    position: absolute;  /* (这里也可以用absolute和fixed） */
+    display: none;
+    right: 210px;
+    top: 89.5px;
+    z-index: 998;
+    width: 160px;
+    height: 160px;
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #000000;
+    opacity: 0;
+    transform: scale(0.5, 0.5);
+    transition: transform 0.5s linear, opacity 0.5s linear;
+}
+.myOverview-click-transiton {
+    display: block;
+    opacity: 1;
+    transform: scale(1, 1);
+}
+
+/* 右键操作菜单样式 */
+.menu {
+    display: none;
+    position: absolute;
+    opacity: 0;
+    margin: 0;
+    padding: 8px 0;
+    z-index: 999;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+    list-style: none;
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+
+.menu-item {
+    display: block;
+    position: relative;
+    min-width: 60px;
+    margin: 0;
+    padding: 6px 16px;
+    font: bold 12px sans-serif;
+    color: rgba(0, 0, 0, .87);
+    cursor: pointer;
+}
+
+.menu-item::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+}
+
+.menu-item:hover::before {
+    opacity: .04;
+}
+
+.menu .menu {
+    top: -8px;
+    left: 100%;
+}
+
+.show-menu, .menu-item:hover > .menu {
+    display: block;
+    opacity: 1;
+}
+
+/*自定义alert样式 Start */
+#alertMsg{
+    height: 2rem;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    margin-top: -1rem;
+    line-height: 2rem;
+    width: 100%;
+    z-index: 999;
+}
+#alertMsg span{
+    color: #fff;
+    background: rgba(0,0,0,0.6);
+    height: 2rem;
+    display: inline-block;
+    padding: 0 3rem;
+    border-radius: 5px;
+}
+/*自定义alert样式 End */
+
+/*info信息框样式 Start */
+.draggable {
+    display: inline-block;
+    vertical-align: top;
+    border: 4px solid #BBB;
+    border-radius: 4px;
+    background-color: #F5F5F5;
+    width: auto;
+    height: auto;
+
+    position: absolute;
+    top: 250px;
+    left: 300px;
+    z-index: 500;
+}
+
+.classSaveButton {
+    position: relative;
+    left: 60px;
+    background-color: #d3d3d3;
+    color: #000000;
+}
+.sequenceSaveButton {
+    position: relative;
+    left: 160px;
+    background-color: #d3d3d3;
+    color: #000000;
+}
+
+.handle {
+    background-color: lightblue;
+    cursor: move;
+    text-align: center;
+    height: 20px;
+    margin: 2px;
+    padding-top: 5px;
+    font: bold 12px sans-serif;
+}
+
+#infoDraggable {
+    display: none;
+}
+.infoDraggable {
+    font: 12px helvetica, sans-serif;
+    opacity: 0;
+    transform: scale(0.5, 0.5);
+    transition: transform 0.5s linear, opacity 0.5s linear;
+}
+.infoDraggable-click-transiton {
+    opacity: 1;
+    transform: scale(1, 1);
+}
+
+#myInfo {
+    width: 100%;
+    overflow: hidden;
+}
+
+/* 用例图框（use case）样式 Start */
+#useCaseDraggable {
+    display: none;
+}
+#useCaseDraggable div label {
+    width: 90px;
+    height: 15px;
+    margin-top: -2px;
+    margin-left: 2px;
+    text-align: center;
+    display: inline-block;
+    border: #b4b4b4 solid 1px;
+}
+/* 用例图框（use case）样式 End */
+
+/* 活动图框（activity diagram）样式 Start */
+#activityDiv {
+    width: 650px;
+    height: 550px;
+    display: none;
+}
+
+#activityDraggableHandle div {
+    position: relative;
+}
+#activityDraggableHandle div button {
+    position: absolute;
+    z-index: 999;
+    top: -20px;
+    left: 401px;
+}
+
+#myActivityPaletteDiv {
+    display: inline-block;
+    background-color: #F5F5F5;
+    margin-top: 12px;
+    width: 18%;
+    height: 88.5%;
+    border-right: #e3e3e3 solid 2px;
+}
+
+#myActivityDiagramDiv {
+    display: inline-block;
+    background-color: #F5F5F5;
+    margin-top: 12px;
+    width: 81%;
+    height: 88.5%;
+}
+
+#activityContainer {
+    position:absolute;
+    bottom: 14px;
+    left: 0px;
+    right: 0px;
+    top: 14px;
+}
+/* 活动图框（activity diagram）样式 End */
+
+/* 顺序图框（sequence diagram）样式 Start */
+#sequenceDiv {
+    width: 650px;
+    height: 550px;
+    display: none;
+}
+
+#sequenceDraggableHandle div {
+    position: relative;
+}
+#sequenceDraggableHandle div button {
+    position: absolute;
+    z-index: 999;
+    top: -20px;
+    left: 401px;
+}
+
+#sequenceContainer {
+    position:absolute;
+    bottom: 14px;
+    left: 0px;
+    right: 0px;
+    top: 14px;
+}
+/* 顺序图框（sequence diagram）样式 End */
+
+/* Default CSS for the Data inspector */
+.inspector {
+    display: inline-block;
+    font: bold 14px helvetica, sans-serif;
+    background-color: #212121; /* Grey 900 */
+    color: #F5F5F5; /* Grey 100 */
+    cursor: default;
+}
+
+.inspector table {
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+
+.inspector td, th {
+    padding: 2px;
+}
+
+.inspector input {
+    background-color: #424242; /* Grey 800 */
+    color: #F5F5F5; /* Grey 100 */
+    font: bold 12px helvetica, sans-serif;
+    border: 0px;
+    padding: 2px;
+}
+
+.inspector input:disabled {
+    background-color: #BDBDBD; /* Grey 400 */
+    color: #616161; /* Grey 700 */
+}
+
+.inspector select {
+    background-color: #424242;
+}
+/*info信息框样式 End */
+
+/*classDiagram框样式 Start */
+#classDraggable {
+    font: 12px helvetica, sans-serif;
+    display: none;
+    vertical-align: top;
+    padding: 5px; top: 20px;
+    left: 380px;
+}
+
+#classDraggableHandle div {
+    position: relative;
+}
+#classDraggableHandle div button {
+    z-index: 999;
+    position: absolute;
+    top: -19px;
+    left: 211px;
+}
+
+#myClassDiagram {
+    width: 100%;
+    overflow: hidden;
+    padding-top: 6px;
+}
+
+.myDiagramButton {
+    position:relative;
+    top:50%;
+    margin-top: 8px;
+    margin-bottom: 5px;
+}
+/*classDiagram框样式 End */
+
+/*读服务端文件框样式 Start */
+.readServerFileTable {
+    border-collapse: collapse;
+}
+
+.readServerFileTable th {
+    cursor: pointer;
+}
+
+a.icon {
+    -webkit-padding-start: 1.5em;
+    text-decoration: none;
+}
+
+a.icon:hover {
+    text-decoration: underline;
+}
+
+a.file {
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAABnRSTlMAAAAAAABupgeRAAABHUlEQVR42o2RMW7DIBiF3498iHRJD5JKHurL+CRVBp+i2T16tTynF2gO0KSb5ZrBBl4HHDBuK/WXACH4eO9/CAAAbdvijzLGNE1TVZXfZuHg6XCAQESAZXbOKaXO57eiKG6ft9PrKQIkCQqFoIiQFBGlFIB5nvM8t9aOX2Nd18oDzjnPgCDpn/BH4zh2XZdlWVmWiUK4IgCBoFMUz9eP6zRN75cLgEQhcmTQIbl72O0f9865qLAAsURAAgKBJKEtgLXWvyjLuFsThCSstb8rBCaAQhDYWgIZ7myM+TUBjDHrHlZcbMYYk34cN0YSLcgS+wL0fe9TXDMbY33fR2AYBvyQ8L0Gk8MwREBrTfKe4TpTzwhArXWi8HI84h/1DfwI5mhxJamFAAAAAElFTkSuQmCC ") left top no-repeat;
+}
+
+a.dir {
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAd5JREFUeNqMU79rFUEQ/vbuodFEEkzAImBpkUabFP4ldpaJhZXYm/RiZWsv/hkWFglBUyTIgyAIIfgIRjHv3r39MePM7N3LcbxAFvZ2b2bn22/mm3XMjF+HL3YW7q28YSIw8mBKoBihhhgCsoORot9d3/ywg3YowMXwNde/PzGnk2vn6PitrT+/PGeNaecg4+qNY3D43vy16A5wDDd4Aqg/ngmrjl/GoN0U5V1QquHQG3q+TPDVhVwyBffcmQGJmSVfyZk7R3SngI4JKfwDJ2+05zIg8gbiereTZRHhJ5KCMOwDFLjhoBTn2g0ghagfKeIYJDPFyibJVBtTREwq60SpYvh5++PpwatHsxSm9QRLSQpEVSd7/TYJUb49TX7gztpjjEffnoVw66+Ytovs14Yp7HaKmUXeX9rKUoMoLNW3srqI5fWn8JejrVkK0QcrkFLOgS39yoKUQe292WJ1guUHG8K2o8K00oO1BTvXoW4yasclUTgZYJY9aFNfAThX5CZRmczAV52oAPoupHhWRIUUAOoyUIlYVaAa/VbLbyiZUiyFbjQFNwiZQSGl4IDy9sO5Wrty0QLKhdZPxmgGcDo8ejn+c/6eiK9poz15Kw7Dr/vN/z6W7q++091/AQYA5mZ8GYJ9K0AAAAAASUVORK5CYII= ") left top no-repeat;
+}
+
+a.up {
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAmlJREFUeNpsU0toU0EUPfPysx/tTxuDH9SCWhUDooIbd7oRUUTMouqi2iIoCO6lceHWhegy4EJFinWjrlQUpVm0IIoFpVDEIthm0dpikpf3ZuZ6Z94nrXhhMjM3c8895977BBHB2PznK8WPtDgyWH5q77cPH8PpdXuhpQT4ifR9u5sfJb1bmw6VivahATDrxcRZ2njfoaMv+2j7mLDn93MPiNRMvGbL18L9IpF8h9/TN+EYkMffSiOXJ5+hkD+PdqcLpICWHOHc2CC+LEyA/K+cKQMnlQHJX8wqYG3MAJy88Wa4OLDvEqAEOpJd0LxHIMdHBziowSwVlF8D6QaicK01krw/JynwcKoEwZczewroTvZirlKJs5CqQ5CG8pb57FnJUA0LYCXMX5fibd+p8LWDDemcPZbzQyjvH+Ki1TlIciElA7ghwLKV4kRZstt2sANWRjYTAGzuP2hXZFpJ/GsxgGJ0ox1aoFWsDXyyxqCs26+ydmagFN/rRjymJ1898bzGzmQE0HCZpmk5A0RFIv8Pn0WYPsiu6t/Rsj6PauVTwffTSzGAGZhUG2F06hEc9ibS7OPMNp6ErYFlKavo7MkhmTqCxZ/jwzGA9Hx82H2BZSw1NTN9Gx8ycHkajU/7M+jInsDC7DiaEmo1bNl1AMr9ASFgqVu9MCTIzoGUimXVAnnaN0PdBBDCCYbEtMk6wkpQwIG0sn0PQIUF4GsTwLSIFKNqF6DVrQq+IWVrQDxAYQC/1SsYOI4pOxKZrfifiUSbDUisif7XlpGIPufXd/uvdvZm760M0no1FZcnrzUdjw7au3vu/BVgAFLXeuTxhTXVAAAAAElFTkSuQmCC ") left top no-repeat;
+}
+
+#readServerFileDraggable {
+    display: none;
+}
+
+#readServerFileDraggableHandle div {
+    position: relative;
+}
+/*读服务端文件框样式 Start */

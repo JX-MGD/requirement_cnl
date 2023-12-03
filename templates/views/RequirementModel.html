@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CNL Requirement</title>
+  {% load static %}
+  <script id="code" type="text/javascript" src="{% static 'server/go.js' %}"></script>
+  <script type="text/javascript" src="{% static 'server/jquery.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'server/jquery-ui.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'server/fileManagerReq.js' %}"></script>
+  <script type="text/javascript" src="{% static 'server/fileSaver.js' %}"></script>
+  <script type="text/javascript" src="{% static 'server/unifiedStructure.js' %}"></script>
+  <!--RequirementDiagram.js RequirementDiagramErrorCheck.js -->
+  <script type="text/javascript" src="{% static 'server/Figure.js' %}"></script>
+  <script type="text/javascript" src="{% static 'server/RequirementDiagram.js' %}"></script>
+  <script type="text/javascript" src="{% static 'server/requireEvents.js' %}"></script>
+  <script type="text/javascript" src="{% static 'server/ContextMenu.js' %}"></script>
+  <!--样式-->
+  <link rel="stylesheet" type="text/css" href="{% static 'public/css/pop-upsRequirement.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'public/css/navRequirement.css' %}">
+</head>
+
+<body>
+    <!--顶部导航栏-->
+    <div class="nav">
+        <!--File-->
+      <div class="dropdown">
+      <!--设置下拉框的按扭名称-->
+      <a>File</a>
+      <!--设置下拉框的内容-->
+      <div class="dropdown-content">
+        <a onclick="">New</a>
+        <a onclick="">Open</a>
+        <div style="border-bottom:1px solid #555555;"></div>
+        <a onclick="">Import</a>
+        <a onclick="">Export</a>
+          <a onclick="usDiag(1)">US Models</a>
+        <a>Setting</a>
+        <div style="border-bottom:1px solid #574f4f;"></div>
+        <a onclick="">Save to Server</a>
+        <a>Exit</a>
+      </div>
+      </div>
+        <!--Edit-->
+      <div class="dropdown">
+        <!--设置下拉框的按扭名称-->
+        <a>Edit</a>
+        <!--设置下拉框的内容-->
+        <div class="dropdown-content">
+          <a onclick="">Undo</a>
+          <a onclick="">Redo</a>
+          <div style="border-bottom:1px solid #555555;"></div>
+          <a onclick="">Cut</a>
+          <a onclick="">Copy</a>
+          <a onclick="">Paste</a>
+          <a onclick="">Delete</a>
+        </div>
+      </div>
+        <!--Tool-->
+      <div class="dropdown">
+        <!--设置下拉框的按扭名称-->
+        <a>Tool</a>
+        <!--设置下拉框的内容-->
+        <div class="dropdown-content">
+          <a onclick="">Lock</a>
+          <a onclick="">Unlock</a>
+          <a onclick="">VersionNumber</a>
+          <div style="border-bottom:1px solid #555555;"></div>
+          <a onclick="">Map</a>
+          <a onclick="">OverView</a>
+          <div style="border-bottom:1px solid #555555;"></div>
+          <a onclick="">Experiment</a>
+          <div style="border-bottom:1px solid #555555;"></div>
+          <a class="check">check
+            <div class="checkChoose">
+              <a>show</a>
+              <a>hide</a>
+            </div>
+          </a>
+        </div>
+      </div>
+        <!--Help-->
+      <div class="dropdown">
+        <!--设置下拉框的按扭名称-->
+        <a>Help</a>
+        <!--设置下拉框的内容-->
+        <div class="dropdown-content">
+          <a>Help</a>
+          <a>About</a>
+          <div style="border-bottom:1px solid #555555;"></div>
+          <div style="border-bottom:1px solid #555555;"></div>
+          <a onclick="">Case study</a>
+        </div>
+      </div>
+        <!--版本控制-->
+      <div id="versionDiv">
+        <button type="button" class="updateVersion" id="updateVersion">Update</button>
+        <div id="softwareCurrentVersion">CurrentVersion:</div>
+      </div>
+    </div>
+    
+    
+    <!-- 工具条 -->
+    <div id="toolBar">
+        <!--字体格式，大小，快捷颜色-->
+      <div id="toolBar1">
+          <!--字体格式-->
+        <div class="toolBarSelect"> <span>Font:</span>
+          <select name="font">
+            <option>Arial Black</option>
+            <option>New York</option>
+            <option>sans-serif</option>
+          </select>
+        </div>
+          <!--字体大小-->
+        <div class="toolBarSelect"> <span>Font-size:</span>
+          <select name="font">
+            <option>12px</option>
+            <option>14px</option>
+            <option>16px</option>
+            <option>18px</option>
+            <option>20px</option>
+          </select>
+        </div>
+          <!--快捷颜色-->
+        <div class="toolBarSelect"> <span>Fill:</span>
+          <select class="fillColor" name="fill">
+            <option style="background-color:#ff0000;color:#000000"></option>
+            <option style="background-color:#12ff02;color:#000000"></option>
+            <option style="background-color:#0019ff;color:#000000"></option>
+          </select>
+        </div>
+      </div>
+        <!--打开文件，保存文件，放大镜，缩小镜-->
+      <div id="toolBar2" >
+        <div class="toolBarIcon"> <img src="{% static 'public/images/toolBarIcon/openFile.png' %}" onclick="importJsonFile()" title="Open JSON File"> </div>
+        <div class="toolBarIcon"> <img src="{% static 'public/images/toolBarIcon/openFile.png' %}" onclick="importJsonFile()" title="Open Text File"> </div>
+        <input type="file" id="importFile" style="display: none;" onchange="uploadJson(this)" />
+        <div class="toolBarIcon"> <img src="{% static 'public/images/toolBarIcon/save.png' %}" onclick="exportJsonFile()" title="Save"> </div>
+        <div class="toolBarIcon"> <img src="{% static 'public/images/toolBarIcon/zoomIn.png'%}" title="Zoom In"> </div>
+        <div class="toolBarIcon"> <img src="{% static 'public/images/toolBarIcon/zoomOut.png' %}" title="Zoom Out"> </div>
+      </div>
+        <!--全景，截图-->
+      <div id="toolBar3">
+        <div class="toolBarIcon"> <img src="{% static 'public/images/toolBarIcon/panorama.png' %}" onclick="" title="Zoom to Fit"> </div>
+        <div class="toolBarIcon"> <img src="{% static 'public/images/toolBarIcon/printscreen.png' %}" onclick="" title="Printscreen"> </div>
+        <input type="file" id="composeStructureModel" style="display: none;" onchange="" accept=".json" multiple="multiple"/>
+      </div>
+    </div>
+
+
+    <!-- 身体部分：节点工具栏，中间画板，右侧图标分析 -->
+    <div style="width: 100%; display: flex; justify-content: space-between; border: 1px solid #000000;" >
+        <!-- 恢复按钮+ -->
+        <div id="recoverButton">
+            <a><img src="{% static 'public/images/leftNavIcon/jiantou1.png'%}" class="recover1" /></a>
+        </div>
+
+
+
+        <!--节点工具栏-->
+        <div id="FunctionDiv">
+            <div id="box_palette">
+                <div id="FunctionsList">
+                    <!-- Tool Box-->
+                    <div class="cueText">Tool Box
+                        <a><img src="{% static 'public/images/leftNavIcon/jiantou4.png' %}" class="delete" /></a>
+                    </div>
+                    <!-- 节点列表-->
+                    <div class="subNavBox">
+                        <div class="subNav currentDd currentDt">新增工具</div>
+                        <ul id="toolNav" class="RequirementDiagramNavContent" style="display:block">
+                          <!--<li type="System" class="RequirementDiagramDraggableElement newTool"><a><img src="../public/images/RequirementIcon/Actor.png" /><span>System</span></a></li>-->
+
+                          <li type="Actor" class="RequirementDiagramDraggableElement newTool"><a><img src="{% static 'public/images/RequirementIcon/Actor.png' %}" /><span>Stakeholder</span></a></li>
+
+                          <li type="RequirementNode" class="RequirementDiagramDraggableElement newTool"><a><img src="{% static 'public/images/RequirementIcon/Node.png' %}" /><span>ReqNode</span></a></li>
+                          <li type="Node" class="RequirementDiagramDraggableElement newTool"><a><img src="{% static 'public/images/RequirementIcon/Node.png' %}" /><span>Node</span></a></li>
+                          <li type="Constraint" class="RequirementDiagramDraggableElement newTool"><a><img src="{% static 'public/images/RequirementIcon/Constraint.png' %}" /><span>Constraint</span></a></li>
+                          <li type="Relation" class="RequirementDiagramDraggableElement newTool"><a><img src="{% static 'public/images/RequirementIcon/Relation.png' %}" /><span>Relation</span></a></li>
+                          <li type="DataEntity" class="RequirementDiagramDraggableElement newTool"><a><img src="{% static 'public/images/RequirementIcon/DataEntity.png' %}" /><span>DataEntity</span></a></li>
+                          <li type="ClassNode" class="RequirementDiagramDraggableElement newTool"><a><img src="{% static 'public/images/RequirementIcon/ClassNode.png' %}" /><span>ClassNode</span></a></li>
+                          <!--<li type="Topic" class="RequirementDiagramDraggableElement newTool"><a><img src="{% static 'public/images/RequirementIcon/Actor.png' %}" /><span>Topic</span></a></li>-->
+                          <li type="SystemBorder" class="RequirementDiagramDraggableElement newTool"><a><img src="{% static 'public/images/RequirementIcon/SystemBorder.png' %}" /><span>SystemBorder</span></a></li>
+                        </ul>
+                        <div class="subNav currentDd currentDt">需求项</div>
+                        <ul id="RequirementNodeNav" class="RequirementDiagramNavContent" style="display:block">
+                        </ul>
+                        <div class="subNav currentDd currentDt">需求分解行为项</div>
+                        <ul id="NodeNav" class="RequirementDiagramNavContent" style="display:block">
+                        </ul>
+                        <div class="subNav currentDd currentDt">参与人</div>
+                        <ul id="ActorNav" class="RequirementDiagramNavContent" style="display:block">
+                        </ul>
+                        <div class="subNav currentDd currentDt">约束</div>
+                        <ul id="ConstraintNav" class="RequirementDiagramNavContent" style="display:block">
+                        </ul>
+                        <div class="subNav currentDd currentDt">关系</div>
+                        <ul id="RelationNav" class="RequirementDiagramNavContent" style="display:block">
+                          <!-- 名称空间包含关系 Namespace Containment-->
+                          <li type="Relation" class="RequirementDiagramDraggableElement ui-draggable ui-draggable-handle" style="position: relative; z-index: 2; left: 0px; top: 0px"><a><img src="{% static 'public/images/RequirementIcon/containment.png' %}"/><span>containment</span></a></li>
+                          <!-- 推演关系 deriveReqt-->
+                          <li type="Relation" class="RequirementDiagramDraggableElement ui-draggable ui-draggable-handle" style="position: relative; z-index: 2; left: 0px; top: 0px"><a><img src="{% static 'public/images/RequirementIcon/deriveReqt.png' %}"/><span>deriveReqt</span></a></li>
+                          <!-- 细化关系 refine-->
+                          <li type="Relation" class="RequirementDiagramDraggableElement ui-draggable ui-draggable-handle" style="position: relative; z-index: 2; left: 0px; top: 0px"><a><img src="{% static 'public/images/RequirementIcon/refine.png' %}"/><span>refine</span></a></li>
+                          <!-- 满足关系 satisfy-->
+                          <li type="Relation" class="RequirementDiagramDraggableElement ui-draggable ui-draggable-handle" style="position: relative; z-index: 2; left: 0px; top: 0px"><a><img src="{% static 'public/images/RequirementIcon/satisfy.png' %}"/><span>satisfy</span></a></li>
+                          <!-- 验证关系 verify-->
+                          <li type="Relation" class="RequirementDiagramDraggableElement ui-draggable ui-draggable-handle" style="position: relative; z-index: 2; left: 0px; top: 0px"><a><img src="{% static 'public/images/RequirementIcon/verify.png' %}"/><span>verify</span></a></li>
+                          <!-- 复制关系 copy-->
+                          <li type="Relation" class="RequirementDiagramDraggableElement ui-draggable ui-draggable-handle" style="position: relative; z-index: 2; left: 0px; top: 0px"><a><img src="{% static 'public/images/RequirementIcon/copy.png' %}"/><span>copy</span></a></li>
+                          <!-- 跟踪关系 trace-->
+                          <li type="Relation" class="RequirementDiagramDraggableElement ui-draggable ui-draggable-handle" style="position: relative; z-index: 2; left: 0px; top: 0px"><a><img src="{% static 'public/images/RequirementIcon/trace.png' %}"/><span>trace</span></a></li>
+                        </ul>
+                        <div class="subNav currentDd currentDt">数据实体</div>
+                        <ul id="DataEntityNav" class="RequirementDiagramNavContent" style="display:block">
+                        </ul>
+                        <div class="subNav currentDd currentDt">类图</div>
+                        <ul id="ClassNodeNav" class="RequirementDiagramNavContent" style="display:block">
+                        </ul>
+                        <div class="subNav currentDd currentDt">SystemBorder</div>
+                        <ul id="SystemBorderNav" class="RequirementDiagramNavContent" style="display:block">
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--中间画布 格式未修改-->
+       <div id="RequirementDiagramDiv" style="background-color: rgb(128,128,128)"></div>
+
+
+        <!-- 右键操作 Start -->
+      <ul id="contextMenu" class="menu">
+        <li id="dependencyFrom" class="menu-item" onclick="cxcommand(event)">dependency From</li>
+        <li id="dependencyTo" class="menu-item" onclick="cxcommand(event)">dependency To</li>
+        <li id="showTheSameTypeNode" class="menu-item" onclick="cxcommand(event)">The Same Type Node</li>
+        <li style="border:1px solid #bcbcbc; height: 1px;"></li>
+        <li id="showAll" class="menu-item" onclick="cxcommand(event)">Show All</li>
+      </ul>
+        <!-- 右键操作 End -->
+
+
+         <!-- 右侧菜单栏 Start 实现Gojs元素的选择显示 -->
+       <div class="rightMenu" id="rightMenu">
+           <!-- 一级目录 Start-->
+           <!-- Actor -->
+           <!-- RequirementNode -->
+           <!-- Node -->
+           <!-- Constraint -->
+           <!-- Relation -->
+           <!-- DataEntity -->
+           <!-- SystemBorder -->
+           <!-- 一级目录 End-->
+
+       </div>
+        <!-- 右侧菜单栏 End -->
+    </div>
+
+
+    <!--    <button onclick="RequirementDiagramSave()">Save</button>-->
+    <!--    <button onclick="RequirementDiagramLoad()">Load</button>-->
+    <div style="display: none"><textarea id="myRequirementDiagramSavedModel" style="width:100%; height:300px;"></textarea></div>
+
+    <!--用于记录子窗口是由哪个UmlDiagram生成 by:ljq-->
+    <div style="display: none">
+      key:<div style="float: right;" id="UmlDiagramKey"></div>
+    </div>
+
+    <!-- 弹窗-->
+    <div class="bgBox">
+      <div class="promptBox" >
+        <div class="promptBoxDiv">
+          <div class="promptBox_logo">新增节点类型</div>
+          <div class="promptBox_close">X</div>
+        </div>
+        <hr>
+        <div class="promptBoxDiv">
+          <input id="promptBoxInput" type="text" placeholder="请输入名称:" style="height: 25px;">
+          <input class="submit" type="button" value="确&nbsp;定">
+        </div>
+        </div>
+      </div>
+
+
+
+
+
+</body>
+<script>
+  var STATIC_URL = "{% static '' %}";
+    gojsInit()
+</script>
+</html>

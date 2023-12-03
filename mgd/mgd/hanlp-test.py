@@ -1,6 +1,8 @@
 from hanlp_restful import HanLPClient
 import json
+import django
 
+print(django.get_version())
 HanLP = HanLPClient('https://www.hanlp.com/api', auth="MzEzMkBiYnMuaGFubHAuY29tOjVyM2Eya1ZLTmxqbW1Gb00=", language='zh') # auth不填则匿名，zh中文，mul多语种
 
 text1_ALL = "学院信息包括学院编号、名称、联系电话。院长信息包括院长编号、姓名、职称、所属学院。每个学院只有一个院长，而一个院长只属于一个学院。班级信息包括班级编号和班级名称。学生信息包括学生编号、姓名、联系方式以及所属班级。一个班级可以有多个学生，但每个学生只属于一个班级。课程信息包括课程编号、课程名称以及教师姓名。一个学生可以选择多门课程，而一门课程可以被多个学生选修。"

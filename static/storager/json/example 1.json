@@ -1,0 +1,22 @@
+{ "class": "go.GraphLinksModel",
+  "linkFromPortIdProperty": "fromPort",
+  "linkToPortIdProperty": "toPort",
+  "nodeDataArray": [ 
+{"loc":"212 93", "category":"Actor", "text":"1", "key":-1},
+{"loc":"328 79", "category":"Actor", "text":"2", "key":-2},
+{"loc":"460 70", "category":"Actor", "text":"3", "key":-3},
+{"loc":"572 61", "category":"Actor", "text":"4", "key":-4},
+{"loc":"210 350", "category":"Node", "text":"11", "key":-5},
+{"loc":"400 350", "category":"Node", "text":"12", "key":-6},
+{"loc":"580 340", "category":"Node", "text":"13", "key":-7},
+{"loc":"310 510", "category":"Constraint", "type":"<<constraint>>", "text":"21", "key":-8}
+ ],
+  "linkDataArray": [ 
+{"category":"Relation", "points":[212,137.316015625,212,147.316015625,210.00000000000009,310.2871093750002,210.00000000000009,320.2871093750002], "text":"132", "from":-1, "fromPort":"B", "to":-5, "toPort":"T"},
+{"category":"Relation", "points":[310,495.7533854166667,310,485.7533854166667,210.00000000000009,389.7128906250002,210.00000000000009,379.7128906250002], "text":"111", "from":-8, "fromPort":"T", "toPort":"B", "to":-5},
+{"category":"Relation", "points":[310,495.7533854166667,310,485.7533854166667,400.0000000000001,389.71289062499994,400.0000000000001,379.71289062499994], "text":"111", "from":-8, "fromPort":"T", "toPort":"B", "to":-6},
+{"category":"Relation", "points":[328,123.316015625,328,133.316015625,400.0000000000001,310.28710937499994,400.0000000000001,320.28710937499994], "text":"132", "from":-2, "fromPort":"B", "toPort":"T", "to":-6},
+{"category":"Relation", "points":[572,105.316015625,572,115.316015625,580,300.287109375,580,310.287109375], "text":"132", "from":-4, "fromPort":"B", "toPort":"T", "to":-7},
+{"from":-3, "fromPort":"B", "toPort":"T", "points":[460,114.316015625,460,124.316015625,400.0000000000001,310.28710937499994,400.0000000000001,320.28710937499994], "to":-6},
+{"from":-3, "fromPort":"B", "toPort":"T", "points":[460,114.316015625,460,124.316015625,210.00000000000009,310.2871093750002,210.00000000000009,320.2871093750002], "to":-5}
+ ]}

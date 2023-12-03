@@ -1,0 +1,589 @@
+@charset "utf-8";
+
+body,
+html {height: 100%; user-select: none;}
+li {list-style: none;}
+a {text-decoration: none;}
+ul {margin: 0;padding: 0}
+
+/* 导航栏样式--Start-- */
+/*给导航设置一个背景*/
+.nav {
+    height: 35px;
+    width: 100%;
+    border: 1px solid black;
+    background-color: #333;
+}
+/*给导航里的a标签设置样式*/
+.nav a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 9px 16px;
+    margin-bottom: 2.5px;
+    text-decoration: none;
+    font: bold 12px sans-serif;
+}
+/*设置鼠标划过的背景色*/
+.nav a:hover {
+    background: #6a6a6a;
+}
+/*给下拉框设置定位*/
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+/*下拉内容设置定位*/
+.dropdown-content {
+    z-index: 100;
+    display: none;
+    position: absolute;
+    background-color: #3a3a3a;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
+}
+/*将下拉内容框里的a标签设置块级元素和字体颜色*/
+.dropdown-content a {
+    cursor: pointer;
+    padding-top: 0.5px;
+    display: block;
+    height: 10px;
+    min-width:140px;
+    color:#ffffff;
+    text-align: left;
+}
+/*设置下拉内容框里的a标签背景*/
+.dropdown-content a:hover {
+    padding-top: 0.5px;
+    z-index: 999;
+    background: #6a6a6a;
+    border:none;
+}
+
+/*当下拉按扭划过时，则下拉内容显示*/
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.check {
+    position: relative;
+    display: inline-block;
+}
+
+.checkChoose {
+    z-index: 100;
+    display: none;
+    position: absolute;
+    background-color: #3a3a3a;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.3);
+}
+.check:hover .checkChoose {
+    display: block;
+}
+#versionDiv {
+    position: absolute;
+    top: 10px;
+    right: 5px;
+}
+
+.updateVersion {
+    float: right;
+    position: relative;
+    width: 60px;
+    height: 17px;
+    font-size: 12px;
+    top: 8px;
+    right: 5px;
+}
+#softwareCurrentVersion {
+    position: absolute;
+    color: white;
+    font: bold 12px sans-serif;
+    padding: 8.5px 25px;
+    right: 54px;
+}
+/* 导航栏样式--End-- */
+
+/*工具条样式  Start */
+#toolBar {
+    width: 100%;
+    height: 35px;
+    margin-bottom: 4px;
+    border: 1px solid black;
+    overflow: hidden;
+}
+#toolBar1 {
+    float: left;
+    margin: 1px;
+    width: 30%;
+    height: 93%;
+    border-right: 1px solid #e3e3e3;
+}
+#toolBar2 {
+    float: left;
+    margin: 1px;
+    width: 35%;
+    height: 93%;
+    border-right: 1px solid #e3e3e3;
+}
+#toolBar3 {
+    float: left;
+    margin: 1px;
+    width: 33%;
+    height: 93%;
+}
+#toolBar .toolBarSelect{
+    float: left;
+    margin-top: 6px;
+    margin-left: 10px;
+    margin-right: 15px;
+}
+
+#toolBar .toolBarIcon img {
+    width: 17px;
+    float: left;
+    margin: 8px 16px;
+    transform: scale(1, 1);
+    transition: transform 0.3s linear;
+}
+#toolBar .toolBarIcon img:hover {
+    transform: scale(1.2, 1.2);
+}
+/*工具条样式  End */
+
+/* 左侧功能菜单样式--Start-- */
+#FunctionDiv {
+    float: left;
+    height: 758px;
+    z-index: 99;
+    background-image: linear-gradient(to right, #fafafa, #f0f1f1);
+    /* border: solid 1px black; */
+}
+#box_palette {
+    background-color: #000000;
+}
+
+#box_palette li {
+    margin-top: 12px;
+}
+
+#FunctionsList {
+    float: left;
+    width: 97%;
+    margin: 2px 0px 0px 2px;
+}
+#FunctionsList .cueText {
+    height: 23px;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 13px;
+    text-align: center;
+    padding-top: 6px;
+    margin-bottom: 2px;
+    border-bottom: solid 1px black;
+    background-color: #000000;
+}
+#FunctionsList .cueText .delete {
+    position: absolute;
+    top: 97px;
+    left: 128px;
+    width: 12px;
+    height: 12px;
+    transform: scale(1, 1);
+    transition: transform 0.2s linear;
+}
+#FunctionsList .cueText .delete:hover {
+    transform: scale(1.2, 1.2);
+}
+#recoverButton .recover1 {
+    position: absolute;
+    top: 90px;
+    left: 12.5px;
+    width: 12px;
+    height: 12px;
+    z-index: 9;
+    transform: scale(1, 1);
+    transition: transform 0.2s linear;
+}
+.recover2 {
+    position: relative;
+    top: 350px;
+    left: 12.5px;
+    width: 12px;
+    height: 12px;
+    z-index: 9;
+    transform: scale(1, 1);
+    transition: transform 0.2s linear;
+}
+
+.subNavBox {
+    width:125px;
+    border:solid 1px #e5e3da;
+    min-width: 150px;
+    /* overflow: auto; */
+}
+.subNavBox ul li a img {
+    width: 16px;
+}
+.subNav {
+    border: solid 1px #cccccc;
+    margin: 2px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 11px;
+    color: #545454;
+    line-height: 17px;
+    padding-left: 18px;
+    background: url(../images/leftNavIcon/jiantou1.png) no-repeat;
+    background-color: #f9f9f9;
+    background-size: 9px;
+    background-position: 3% 50%;
+}
+.subNav:hover {
+    color: #ffffff;
+    background-color: #a2a2a2;
+}
+.currentDd {
+    color:#ffffff;
+    background-color: #a8a8a8;
+}
+.currentDt {
+    background-image:url(../images/leftNavIcon/jiantou2.png);
+    background-size: 9px;
+    background-position:3% 50%;
+}
+.RequirementDiagramNavContent {
+    position: relative;
+    top: -8px;
+    display: none;
+}
+.RequirementDiagramNavContent li {
+    margin-left: 10px;
+    margin-bottom: -10px;
+}
+.RequirementDiagramNavContent li:hover {
+    background-color: #b6b6b6;
+    width: 120px;
+    margin-left: 2px;
+}
+.RequirementDiagramNavContent li a {
+    display:block;
+    font-size:10px;
+    line-height:15px;
+    color:#333;
+}
+.RequirementDiagramNavContent li a:hover {
+    color:#ffffff;
+    font-weight: bold;
+    margin-left: 6px;
+}
+.RequirementDiagramNavContent li a span {
+    position: relative;
+    top: -5px;
+    left: 8px;
+}
+/*左侧功能菜单样式--End-- */
+
+/*弹窗样式 Start */
+.bgBox{
+    z-index: 900;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(255,255,255,0.5);
+    left: 0;
+    top:0;
+    display: none;
+
+}
+
+.promptBox{
+    width:400px;
+    height:120px;
+    border:3px solid #000000;
+    display: none;
+    z-index: 999;
+    opacity: 1;
+    overflow: hidden;
+    text-align: center;
+    border-radius: 10px;
+    position: relative;
+    background: #e3e3e3;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+
+
+}
+.open{
+    display: block;
+    opacity: 1;
+}
+
+.promptBoxDiv{
+    margin-top: 10px;
+    width:100%;
+    height:25px;
+}
+.promptBoxDiv .promptBox_logo{
+    text-align: left;
+    font-size: 20px;
+    font-weight: 300;
+    padding-left: 60px;
+    float: left;
+}
+.promptBoxDiv .promptBox_close{
+    width:20px;
+    height:20px;
+    color:#5d5d5d;
+    text-align: center;
+    line-height: 20px;
+    border:1px solid  #5d5d5d;
+    border-radius: 50%;
+    float: right;
+    padding-top: 0px;
+    margin-right: 10px;
+    font-size: 12px;
+}
+.promptBoxDiv .promptBox_close:hover{
+    cursor:pointer;
+}
+hr{
+    background-color: #F8F8F8;
+}
+.promptBoxDiv .submit{
+    border:2px solid #f88020;
+    width: 100px;
+    height:35px;
+    border-radius: 5px;
+}
+.promptBoxDiv .submit:hover{
+    background-color: #f88020;
+    color:white;
+}
+
+
+
+/*弹窗样式 End */
+
+/*画板样式 Start */
+#RequirementDiagramDiv {
+    flex-grow: 1;
+    position: relative;
+    z-index: 1;
+    height: 758px;
+    /* border: solid 1px black; */
+}
+/*画板样式 End */
+
+/*右侧导航栏Start*/
+.rightMenu {
+    width: 199px;
+    overflow: auto;
+    border:1px solid black;
+    display: block;
+}
+
+.category-container {
+  margin-bottom: 10px;
+}
+
+.category-header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  background-color: #f2f2f2;
+}
+
+.collapse-button {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 4px;
+  color: #555555;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.collapse-button:hover {
+  background-color: #dddddd;
+}
+
+
+.category-header {
+  margin: 0;
+  flex: 1;
+}
+
+.select-all-checkbox {
+  margin-left: 10px;
+}
+
+.node-container {
+  display: none;
+  margin-left: 30px;
+}
+
+.node-entry {
+  margin-bottom: 5px;
+}
+
+.node-entry label {
+  margin-left: 10px;
+}
+
+.category-container.visible .node-container {
+  display: block;
+}
+
+
+.rightMenuInner {
+    margin-top: 30px;
+    width: 800px;
+    height:700px;
+}
+.rightMenu .cueText1 {
+    position: absolute;
+    top: 88px;
+    right: 10px;
+    width: 195px;
+    height: 23px;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 13px;
+    text-align: center;
+    padding-top: 3px;
+    margin-bottom: 2px;
+    z-index: 98;
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
+    background-color: #000000;
+}
+
+.DetailOrError {
+    position: absolute;
+    top: 500px;
+    right: 10px;
+    width: 195px;
+    height: 23px;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 13px;
+    text-align: center;
+    padding-top: 3px;
+    margin-bottom: 2px;
+    z-index: 98;
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
+    background-color: #000000;
+}
+.diagramDetails {
+    position: absolute;
+    top: 542px;
+    right: 10px;
+    width: 195px;
+    height: 23px;
+    color: #000000;
+    font-weight: 800;
+    font-size: 13px;
+    text-align: center;
+    padding-top: 3px;
+    margin-bottom: 2px;
+    /* z-index: 98; */
+}
+.confirmButton {
+    position: absolute;
+    top: 585px;
+    right: 10px;
+    width: 195px;
+    height: 23px;
+    color: #000000;
+    font-weight: 800;
+    font-size: 13px;
+    text-align: center;
+    padding-top: 3px;
+    margin-bottom: 2px;
+}
+
+#temporaryFrame{
+    position: absolute;
+    top: 140px;
+    right: 10px;
+    width: 195px;
+    height: 23px;
+}
+
+.rightMenu {
+    width: 199px;
+    overflow: auto;
+    /* border:1px solid black; */
+}
+.rightMenuInner {
+    margin-top: 30px;
+    width: 800px;
+    height:700px;
+}
+.rightMenu .cueText {
+    position: absolute;
+    top: 88px;
+    right: 10px;
+    width: 195px;
+    height: 24px;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 13px;
+    text-align: center;
+    padding-top: 3px;
+    margin-bottom: 2px;
+    z-index: 98;
+    border-top: 2px solid white;
+    /* border-bottom: 3px solid white; */
+    background-color: #000000;
+}
+
+#rightMenuCloseButton a img {
+    position: absolute;
+    top: 96.5px;
+    right: 16px;
+    width: 12px;
+    height: 12px;
+    z-index: 99;
+    transform: scale(1, 1);
+    transition: transform 0.2s linear;
+}
+#rightMenuCloseButton a img:hover {
+    transform: scale(1.2, 1.2);
+}
+
+.TreeWrap {width:auto; margin-left:2px; margin-top:2px;}
+.TreeWrap>div>.MenuBox {border:1px solid #dcdcdc; margin-bottom:2.5px;}
+.MenuBox {margin-bottom:2.5px;}
+.MenuBoxOpen>.titBox>h3>a,
+.MenuBoxOpen>.titBox>h3>a:visited,
+.MenuBoxClose>.titBox>h3>a,
+.MenuBoxClose>.titBox>h3>a:visited {margin-left:2px;padding-left:40px;color:#5e5e5e;font:bold 12px sans-serif;display:block;}
+.MenuBoxOpen>.titBox>h3>a {background:url(../images/rightNavIcon/ico_folder_open.gif) no-repeat 0 40%;}
+.MenuBoxOpen>.titBox>h3.Fst>a {background:url(../images/rightNavIcon/ico_folder_open_fst.gif) no-repeat 0 40%;}
+.MenuBoxOpen>.titBox>h3.Lst>a {background:url(../images/rightNavIcon/ico_folder_open_lst.gif) no-repeat 0 40%;}
+.MenuBoxClose>.titBox>h3>a {background:url(../images/rightNavIcon/ico_folder.gif) no-repeat 0 40%;}
+.MenuBoxClose>.titBox>h3.Fst>a {background:url(../images/rightNavIcon/ico_folder_fst.gif) no-repeat 0 40%;}
+.MenuBoxClose>.titBox>h3.Lst>a {background:url(../images/rightNavIcon/ico_folder_lst.gif) no-repeat 0 40%;}
+.MenuBoxClose>.txtBox {display:none;}
+.MenuBoxOpen>.txtBox>ul>li {padding-left:18px;line-height:150%;}
+/* .MenuBoxOpen>.txtBox>ul {background:url(../images/rightNavIcon/line_y.gif) repeat-y 16px 0;} */
+.MenuBoxOpen>.txtBox>ul>li {font-size: 7px;color:rgb(226, 30, 30)}
+/* .MenuBoxOpen>.txtBox>ul>li.Lst {background:url(../images/rightNavIcon/t_lst.gif) no-repeat 28px 50%;} */
+
+.indentMenuBox {position:relative; left:18px;}
+.titBox h3 {font: 2px sans-serif;}
+.titBox h3 a span {line-height:0px;}
+.titBox h3 a p,
+.txtBox ul li p {font-size:5px; font-weight: 300; line-height:0px;}
+/* .txtBox ul li a:hover {color: #003EFF; font-size: 15px; cursor: pointer;} */

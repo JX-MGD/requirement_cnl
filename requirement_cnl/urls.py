@@ -17,14 +17,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from requirement_cnl import views
+
+# 路由url
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
-# Compare this snippet from requirement_cnl\urls.py:
-from django.conf.urls import url
+    path('hello/', views.hello),
+    path('homepage/', views.homepage),
+    path('nlp_request/', views.nlp_request),
+    path('nlp_response/', views.nlp_response),
+    # 工具主页
+    path('index/', views.index),
 
-from . import views
-
-urlpatterns = [
-    url(r'^$', views.hello),
 ]
+

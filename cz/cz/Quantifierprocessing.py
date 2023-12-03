@@ -1,4 +1,3 @@
-import my_functions
 import split
 from fastHan import FastHan
 
