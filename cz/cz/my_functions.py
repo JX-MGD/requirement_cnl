@@ -1,5 +1,5 @@
 # Class Have Attr
-def have(root_position, dependency_list, have_position, root_pos, root_mean):
+def have(root_position, dependency_list,pos_list, have_position, root_pos, root_mean):
     # 初始化分类列表
     Class_list = []
     Attribute_list = []
@@ -14,19 +14,37 @@ def have(root_position, dependency_list, have_position, root_pos, root_mean):
                     # 判断是否为 "top" 或 "dobj"
                     if dependency[2] == 'top' or dependency[2] == 'nsubj' or dependency[2] == 'dep' or dependency[
                         2] == 'root':
-                        if root_pos == 've' or root_mean=='属于' or root_mean=='选择':  # 若top前面有nn，则合并单词
+                        # 若top前面有nn，则合并单词
+                        if root_pos == 've' or root_mean=='属于' or root_mean=='选择'or root_mean=='包括' or root_mean=='包含':
                             composition = dependency[0]
                             for sublist in dependency_list:
+                                found_condition = False  # 设置标志
+
                                 for dep in sublist:
                                     if dep[2] == 'nn' and sublist.index(dep) + 1 == sublist.index(dependency):
                                         composition = dep[0] + dependency[0]
-                                Class_list.append(composition)
+                                        Class_list.append(composition)
+                                        found_condition = True  # 设置标志为True
+                                    # 名词定语
+                                    elif dep[2] == 'assmod' and dep[1] - 1 == sublist.index(dependency):
+                                        if pos_list[0][sublist.index(dep)][1]=='nn':
+                                            # 添加缺失的定语
+                                            Class_list.append(dep[0])
+                                            # 添加主语
+                                            Class_list.append(dependency[0])
+                                            found_condition = True  # 设置标志为True
+
+                                # 在循环结束后检查是否进入过判断
+                                if not found_condition:
+                                    Class_list.append(dependency[0])
+
                             continue
+
 
                         elif root_pos == 'vv':
                             Class_list.append(root_mean)
 
-                        # 若dobj前面有nn，则合并单词
+                    # 若dobj前面有nn，则合并单词
                     elif dependency[2] == 'dobj':
                         # 获取当前元素所在位置
                         index = sublist.index(dependency)
@@ -39,24 +57,38 @@ def have(root_position, dependency_list, have_position, root_pos, root_mean):
                             composition = "unique:" + composition
                         #寻找dobj前面的组合名词
                         for sublist in dependency_list:
+                            found_condition = False
                             for dep in sublist:
                                 if dep[2] == 'nn' and sublist.index(dep) + 1 == sublist.index(dependency):
                                     # 获取当前元素所在位置
                                     index = sublist.index(dep)
                                     composition = dep[0] + dependency[0]
+
+                                    found_condition = True  # 设置标志为True
                                     # 寻找唯一键
                                     if sublist[index - 1][0] == "特定" or sublist[index - 2][0] == "特定" or \
                                             sublist[index - 1][0] == "独特" or sublist[index - 2][
                                         0] == "独特" or sublist[index - 1][0] == "唯一" or sublist[index - 2][
                                         0] == "唯一":
                                         composition = "unique:" + composition
+                                    Attribute_list.append(composition)
+                                # 名词定语
+                                elif dep[2] == 'assmod' and dep[1] - 1 == sublist.index(dependency):
+                                    if pos_list[0][sublist.index(dep)][1] == 'nn':
+                                        # 添加缺失的定语
+                                        Class_list.append(dep[0])
 
-                        Attribute_list.append(composition)
+                                        found_condition = True  # 设置标志为True
+                                # 在循环结束后检查是否进入过判断
+                            if not found_condition:
+                                Attribute_list.append(composition)
+                        continue
+
 
         # 遍历依存关系列表，查找依存关系是 "conj" 的词汇
         for sublist in dependency_list:
             for dependency in sublist:
-                if dependency[2] == 'conj':
+                if dependency[2] in['conj','dep']:
                     # 获取当前依存关系词汇在子列表中的位置（索引）
                     dep_index = dependency[1]
 
@@ -135,7 +167,7 @@ def Is(root_position, dependency_list):
                 # 判断子列表中的数字与 root_position_in_sublist 是否相等
                 if dependency[1] == root_position:
                     # 判断是否为 "top" 或 "dobj"
-                    if dependency[2] == 'top' or dependency[2] == 'nsubj':
+                    if dependency[2] in['top','nsubj']:
                         # 若top前面有nn，则合并单词
                         composition = dependency[0]
                         for sub in dependency_list:
@@ -149,7 +181,7 @@ def Is(root_position, dependency_list):
                         composition = dependency[0]
                         for sub in dependency_list:
                             for dep in sublist:
-                                if dep[2] == 'nn' and sublist.index(dep) + 1 == sublist.index(dependency):
+                                if dep[2] in['nn','amod'] and sublist.index(dep) + 1 == sublist.index(dependency):
                                     composition = dep[0] + dependency[0]
 
                         SpecialClass_list.append(composition)
@@ -157,7 +189,7 @@ def Is(root_position, dependency_list):
         # 遍历依存关系列表，查找依存关系是 "conj" 的词汇
         for sublist in dependency_list:
             for dependency in sublist:
-                if dependency[2] == 'conj':
+                if dependency[2] in ['conj','dep']:
                     # 获取当前依存关系词汇在子列表中的位置（索引）
                     dep_index = dependency[1]
 
@@ -180,7 +212,7 @@ def Is(root_position, dependency_list):
                                 composition = dependency[0]
                                 for sub in dependency_list:
                                     for dep in sublist:
-                                        if dep[2] == 'nn' and sublist.index(dep) + 1 == sublist.index(dependency):
+                                        if dep[2] in['nn','amod'] and sublist.index(dep) + 1 == sublist.index(dependency):
                                             composition = dep[0] + dependency[0]
                                 SpecialClass_list.append(composition)
 

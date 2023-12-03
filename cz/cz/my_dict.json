@@ -8,112 +8,295 @@
   },
   "nodeDataArray": [
     {
-      "key": "Ժ��",
+      "key": "酒店",
       "category": "ClassDiagram",
-      "name": "Ժ��",
-      "properties": [
-        {
-          "name": "ְ��"
-        },
-        {
-          "name": "Ժ�����"
-        },
-        {
-          "name": "����"
-        }
-      ],
-      "text": "Ժ��"
+      "name": "酒店",
+      "properties": [],
+      "text": "酒店"
     },
     {
-      "key": "ѧԺ",
+      "key": "空间",
       "category": "ClassDiagram",
-      "name": "ѧԺ",
+      "name": "空间",
       "properties": [
         {
-          "name": "��ϵ�绰"
+          "name": "面积"
         },
         {
-          "name": "ѧԺ���"
+          "name": "租金成本",
+          "type": "unique"
         },
         {
-          "name": "����"
+          "name": "室类型"
         }
       ],
-      "text": "ѧԺ"
+      "text": "空间"
     },
     {
-      "key": "�༶",
+      "key": "卧室",
       "category": "ClassDiagram",
-      "name": "�༶",
+      "name": "卧室",
       "properties": [
         {
-          "name": "����"
-        },
-        {
-          "name": "�༶���"
+          "name": "房间号",
+          "type": "unique"
         }
       ],
-      "text": "�༶"
+      "text": "卧室"
     },
     {
-      "key": "ѧ��",
+      "key": "电视机",
       "category": "ClassDiagram",
-      "name": "ѧ��",
+      "name": "电视机",
       "properties": [
         {
-          "name": "��ϵ��ʽ"
+          "name": "显示尺寸"
         },
         {
-          "name": "ѧ�����"
+          "name": "序列号"
         },
         {
-          "name": "����"
+          "name": "型号"
+        },
+        {
+          "name": "品牌"
         }
       ],
-      "text": "ѧ��"
+      "text": "电视机"
     },
     {
-      "key": "�γ�",
+      "key": "预订",
       "category": "ClassDiagram",
-      "name": "�γ�",
+      "name": "预订",
       "properties": [
         {
-          "name": "��ʦ����"
+          "name": "结束日期"
         },
         {
-          "name": "�γ̱��"
+          "name": "开始日期"
         },
         {
-          "name": "�γ�����"
+          "name": "记录信息"
+        },
+        {
+          "name": "预定号",
+          "type": "unique"
         }
       ],
-      "text": "�γ�"
+      "text": "预订"
+    },
+    {
+      "key": "客户",
+      "category": "ClassDiagram",
+      "name": "客户",
+      "properties": [
+        {
+          "name": "姓氏"
+        },
+        {
+          "name": "姓名"
+        },
+        {
+          "name": "联系方式"
+        }
+      ],
+      "text": "客户"
+    },
+    {
+      "key": "会议室",
+      "category": "ClassDiagram",
+      "name": "会议室",
+      "properties": [
+        {
+          "name": "容量"
+        },
+        {
+          "name": "名称"
+        },
+        {
+          "name": "投影屏幕"
+        }
+      ],
+      "text": "会议室"
+    },
+    {
+      "key": "接待员",
+      "category": "ClassDiagram",
+      "name": "接待员",
+      "properties": [
+        {
+          "name": "工作职责"
+        },
+        {
+          "name": "工号"
+        }
+      ],
+      "text": "接待员"
+    },
+    {
+      "key": "地址",
+      "category": "ClassDiagram",
+      "name": "地址",
+      "properties": [
+        {
+          "name": "门牌号"
+        },
+        {
+          "name": "省份"
+        },
+        {
+          "name": "市区"
+        },
+        {
+          "name": "街道"
+        }
+      ],
+      "text": "地址"
+    },
+    {
+      "key": "前台",
+      "category": "ClassDiagram",
+      "name": "前台",
+      "properties": [
+        {
+          "name": "性别"
+        },
+        {
+          "name": "工作号"
+        },
+        {
+          "name": "姓名"
+        },
+        {
+          "name": "年龄"
+        }
+      ],
+      "text": "前台"
+    },
+    {
+      "key": "床",
+      "category": "ClassDiagram",
+      "name": "床",
+      "properties": [
+        {
+          "name": "床类型"
+        }
+      ],
+      "text": "床"
     }
   ],
   "linkDataArray": [
     {
+      "category": "Generalize",
+      "fromtext": "",
+      "toText": "",
+      "nodeText": "",
+      "from": "会议室",
+      "to": "空间"
+    },
+    {
+      "category": "Generalize",
+      "fromtext": "",
+      "toText": "",
+      "nodeText": "",
+      "from": "卧室",
+      "to": "空间"
+    },
+    {
+      "category": "null",
+      "fromtext": "",
+      "toText": "",
+      "nodeText": "",
+      "from": "卧室",
+      "to": "酒店"
+    },
+    {
+      "category": "null",
+      "fromtext": "",
+      "toText": "",
+      "nodeText": "处理",
+      "from": "预订",
+      "to": "接待员"
+    },
+    {
+      "category": "null",
+      "fromtext": "",
+      "toText": "",
+      "nodeText": "",
+      "from": "地址",
+      "to": "客户"
+    },
+    {
+      "category": "Aggregate",
+      "fromtext": "",
+      "toText": "",
+      "nodeText": "",
+      "from": "空间",
+      "to": "预订"
+    },
+    {
+      "category": "Aggregate",
+      "fromtext": "",
+      "toText": "",
+      "nodeText": "",
+      "from": "客户",
+      "to": "预订"
+    },
+    {
+      "category": "Generalize",
+      "fromtext": "",
+      "toText": "",
+      "nodeText": "",
+      "from": "大床",
+      "to": "床"
+    },
+    {
+      "category": "Generalize",
+      "fromtext": "",
+      "toText": "",
+      "nodeText": "",
+      "from": "单人床",
+      "to": "床"
+    },
+    {
+      "category": "Generalize",
+      "fromtext": "",
+      "toText": "",
+      "nodeText": "",
+      "from": "双人床",
+      "to": "床"
+    },
+    {
+      "category": "Aggregate",
+      "fromtext": "",
+      "toText": "",
+      "nodeText": "",
+      "from": "空间",
+      "to": "酒店"
+    },
+    {
+      "category": "Aggregate",
+      "fromtext": "",
+      "toText": "",
+      "nodeText": "",
+      "from": "床",
+      "to": "卧室"
+    },
+    {
+      "category": "Aggregate",
+      "fromtext": "",
+      "toText": "",
+      "nodeText": "",
+      "from": "电视机",
+      "to": "卧室"
+    },
+    {
       "category": "Association_NoArrow",
       "fromText": "1",
-      "toText": "1",
+      "toText": null,
       "nodeText": "",
-      "from": "Ժ��",
-      "to": "ѧԺ"
-    },
-    {
-      "category": "Association_NoArrow",
-      "fromText": "*",
-      "toText": "1",
-      "nodeText": "",
-      "from": "ѧ��",
-      "to": "�༶"
-    },
-    {
-      "category": "Association_NoArrow",
-      "fromText": "*",
-      "toText": "*",
-      "nodeText": "",
-      "from": "ѧ��",
-      "to": "�γ�"
+      "from": "接待员",
+      "to": "酒店"
     }
   ]
 }
