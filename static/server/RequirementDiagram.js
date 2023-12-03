@@ -634,55 +634,119 @@ function gojsInit() {
 
   // ClassNode
   mySubDiagram.nodeTemplateMap.add(NodeType[6],
-    $$(go.Node, "Auto", nodeStyle(),
-        {
-          locationSpot: go.Spot.Center,
-          fromSpot: go.Spot.AllSides,
-          toSpot: go.Spot.AllSides
+    $$(go.Node, "Auto", {
+      locationSpot: go.Spot.Center,
+    }, new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
+      new go.Binding("desiredSize", "size", go.Size.parse).makeTwoWay(go.Size.stringify), {
+      selectable: true,
+      selectionAdornmentTemplate: nodeSelectionAdornmentTemplate
+    }, {
+      resizable: true,
+      resizeObjectName: "PANEL",
+      resizeAdornmentTemplate: nodeResizeAdornmentTemplate
+    },
+      $$(go.Shape, {
+        fill: "lightyellow",
+        portId: ""
+      }),
+      $$(go.Panel, "Table", {
+        name: "PANEL",
+        defaultRowSeparatorStroke: "black" //对于表格面板。获取或设置行的默认笔画（颜色）
+      },
+        // header
+        $$(go.TextBlock, {
+          row: 0,
+          columnSpan: 20,
+          margin: 3,
+          alignment: go.Spot.Center,
+          font: "bold 12pt  sans-serif",
+          isMultiline: false, //是否可以换行
+          editable: true
         },
-        $$(go.Shape, { fill: "lightyellow" }),
-        $$(go.Panel, "Table",
-          { defaultRowSeparatorStroke: "black" },
-          // header
-          $$(go.TextBlock,
-            {
-              row: 0, columnSpan: 2, margin: 3, alignment: go.Spot.Center,
-              font: "bold 12pt sans-serif",
-              isMultiline: false, editable: true
-            },
-            new go.Binding("text", "name").makeTwoWay()),
-          // properties
-          $$(go.TextBlock, "Properties",
-            { row: 1, font: "italic 10pt sans-serif" },
-            new go.Binding("visible", "visible", function(v) { return !v; }).ofObject("PROPERTIES")),
-          $$(go.Panel, "Vertical", { name: "PROPERTIES" },
-            new go.Binding("itemArray", "properties"),
-            {
-              row: 1, margin: 3, stretch: go.GraphObject.Fill,
-              defaultAlignment: go.Spot.Left, background: "lightyellow",
-              itemTemplate: propertyTemplate
-            }
-          ),
-          $$("PanelExpanderButton", "PROPERTIES",
-            { row: 1, column: 1, alignment: go.Spot.TopRight, visible: false },
-            new go.Binding("visible", "properties", function(arr) { return arr.length > 0; })),
-          // methods
-          $$(go.TextBlock, "Methods",
-            { row: 2, font: "italic 10pt sans-serif" },
-            new go.Binding("visible", "visible", function(v) { return !v; }).ofObject("METHODS")),
-          $$(go.Panel, "Vertical", { name: "METHODS" },
-            new go.Binding("itemArray", "methods"),
-            {
-              row: 2, margin: 3, stretch: go.GraphObject.Fill,
-              defaultAlignment: go.Spot.Left, background: "lightyellow",
-              itemTemplate: methodTemplate
-            }
-          ),
-          $$("PanelExpanderButton", "METHODS",
-            { row: 2, column: 1, alignment: go.Spot.TopRight, visible: false },
-            new go.Binding("visible", "methods", function(arr) { return arr.length > 0; }))
-        )
-        ));
+          new go.Binding("text").makeTwoWay()),
+        // properties
+
+
+        $$(go.TextBlock, "Properties", {
+          name: "pproperties",
+          row: 1,
+          font: "italic 10pt sans-serif", //properties的字体大小
+        },
+          new go.Binding("visible", "visible", function (v) {
+            /* console.log(111111111) */
+            return !v;
+          }).ofObject("PROPERTIES")
+        ),
+        $$(go.Panel, "Vertical", { //具体的属性
+          name: "PROPERTIES"
+        },
+          new go.Binding("itemArray", "properties").makeTwoWay(), {
+          row: 1,
+          margin: 3,
+          stretch: go.GraphObject.Fill,
+          defaultAlignment: go.Spot.Left,
+          background: "lightyellow",
+          itemTemplate: propertyTemplate,
+          visible: false
+        }
+        ),
+
+        $$("PanelExpanderButton", "PROPERTIES", {
+          row: 1, //修饰按钮
+          column: 1,
+          alignment: go.Spot.TopRight,
+          visible: false
+        },
+          new go.Binding("visible", "properties", function (arr) {
+            return arr.length > 0;
+          })
+        ),
+        // methods
+        $$(go.TextBlock, "Methods", {
+          row: 2,
+          font: "italic 10pt sans-serif"
+        },
+          new go.Binding("visible", "visible", function (v) {
+            return !v;
+          }).ofObject("METHODS")),
+        $$(go.Panel, "Vertical", {
+          name: "METHODS"
+        },
+          new go.Binding("itemArray", "methods").makeTwoWay((e, v, m) => {
+            /*   console.log(v) */
+          }), {
+          row: 2,
+          margin: 3,
+          stretch: go.GraphObject.Fill,
+          defaultAlignment: go.Spot.Left,
+          background: "lightyellow",
+          itemTemplate: methodTemplate,
+          visible: false
+        }
+        ),
+        $$("PanelExpanderButton", "METHODS", {
+          row: 2,
+          column: 1,
+          alignment: go.Spot.TopRight,
+          visible: false
+        },
+          new go.Binding("visible", "methods", function (arr) {
+            return arr.length > 0;
+          })
+        ),
+      ),
+      makePort("T", go.Spot.Top, true, true),
+      makePort("L", go.Spot.Left, true, true),
+      makePort("R", go.Spot.Right, true, true),
+      makePort("B", go.Spot.Bottom, true, true), { // handle mouse enter/leave events to show/hide the ports
+      mouseEnter: function (e, node) {
+        showSmallPorts(node, true);
+      },
+      mouseLeave: function (e, node) {
+        showSmallPorts(node, false);
+      }
+    }
+    ));
 
 
   // 使边界模型的文字置底，同时边界无法参与连线
