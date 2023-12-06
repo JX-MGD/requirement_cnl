@@ -28,6 +28,8 @@ urlpatterns = [
     path('nlp_response/', views.nlp_response),
     # 工具主页
     path('index/', views.index),
+    # 上传文件
+    path('upload_docx_or_textfile/', views.upload_docx_or_textfile),
 
 ]
 

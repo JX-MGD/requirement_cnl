@@ -7,6 +7,7 @@ function importJsonFile() {
     $("#importFile").click();
     console.log("引入文件");
 }
+
 function uploadJson(input) {  //支持chrome IE10
     if (window.FileReader) {
         let file = input.files[0];
@@ -38,6 +39,88 @@ function uploadJson(input) {  //支持chrome IE10
         alert('error');
     }
 }
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        let cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function importDocxOrTextFile() {
+    $("#importDocxOrTextFile").click();
+    console.log("importDocxOrTextFile");
+}
+
+function uploadDocxOrTextFile(input) {
+    console.log("uploadDocxOrTextFile");
+
+    let csrftoken = getCookie('csrftoken');
+
+    //支持chrome IE10
+    if (window.FileReader) {
+        let file = input.files[0];
+        let formData = new FormData();
+        formData.append('file', file);
+        for (let key of formData.entries()) {
+            console.log(key[0] + ', ' + key[1]);
+        }
+
+        // 使用 fetch API 发送文件到服务器
+         fetch('http://127.0.0.1:8000/upload_docx_or_textfile/', {
+             method: 'POST',
+             headers: {
+                 'X-CSRFToken': csrftoken
+             },
+             body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`${response.status} ${response.statusText}`);
+            }
+            return response.json()
+        })
+        .then(data => {
+            console.log("fetch接收到的数据："+data)
+            $("#myRequirementDiagramSavedModel").text(data);
+            RequirementDiagramLoad();
+
+        })
+        .catch(error => console.error(error));
+    }
+    //支持IE 7 8 9 10
+    else if (typeof window.ActiveXObject != 'undefined'){
+        let xmlDoc;
+        xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+        xmlDoc.async = false;
+        xmlDoc.load(input.value);
+        $("#myRequirementDiagramSavedModel").text(xmlDoc.xml);
+        RequirementDiagramLoad();
+    }
+    //支持FF
+    else if (document.implementation && document.implementation.createDocument) {
+        let xmlDoc;
+        xmlDoc = document.implementation.createDocument("", "", null);
+        xmlDoc.async = false;
+        xmlDoc.load(input.value);
+        $("#myRequirementDiagramSavedModel").text(xmlDoc.xml);
+        RequirementDiagramLoad();
+    } else {
+        alert('FileReader is not supported in this browser.');
+        // alert('error');
+    }
+}
+
+
 //##打开文件 End ##//
 
 function exportJsonFile(){

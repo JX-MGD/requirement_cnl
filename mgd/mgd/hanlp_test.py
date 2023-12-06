@@ -149,7 +149,7 @@ class Relationship:
 
 # 分析句子结构，提取实体和属性
 # 匹配
-def match(doc,class_list):
+def match(doc, class_list, relationship_list):
     tokens_list = doc["tok/fine"]
     pos_tags_list = doc["pos/ctb"]
     dependencies_list = doc["dep"]
@@ -269,7 +269,7 @@ def togojsjson(class_list, relationship_list):
                        "nodeDataArray": class_data, "linkDataArray": relationship_data}, ensure_ascii=False)
 
 
-match(doc, class_list)
+match(doc, class_list, relationship_list)
 print("class_list_leng",class_list.__len__())
 
 # 构建JSON数据结构
