@@ -9,14 +9,14 @@
   "nodeDataArray": [
     {
       "key": "酒店",
-      "category": "ClassDiagram",
+      "category": "ClassNode",
       "name": "酒店",
       "properties": [],
       "text": "酒店"
     },
     {
       "key": "空间",
-      "category": "ClassDiagram",
+      "category": "ClassNode",
       "name": "空间",
       "properties": [
         {
@@ -34,7 +34,7 @@
     },
     {
       "key": "卧室",
-      "category": "ClassDiagram",
+      "category": "ClassNode",
       "name": "卧室",
       "properties": [
         {
@@ -46,7 +46,7 @@
     },
     {
       "key": "电视机",
-      "category": "ClassDiagram",
+      "category": "ClassNode",
       "name": "电视机",
       "properties": [
         {
@@ -66,7 +66,7 @@
     },
     {
       "key": "预订",
-      "category": "ClassDiagram",
+      "category": "ClassNode",
       "name": "预订",
       "properties": [
         {
@@ -87,7 +87,7 @@
     },
     {
       "key": "客户",
-      "category": "ClassDiagram",
+      "category": "ClassNode",
       "name": "客户",
       "properties": [
         {
@@ -104,7 +104,7 @@
     },
     {
       "key": "会议室",
-      "category": "ClassDiagram",
+      "category": "ClassNode",
       "name": "会议室",
       "properties": [
         {
@@ -121,7 +121,7 @@
     },
     {
       "key": "接待员",
-      "category": "ClassDiagram",
+      "category": "ClassNode",
       "name": "接待员",
       "properties": [
         {
@@ -135,7 +135,7 @@
     },
     {
       "key": "地址",
-      "category": "ClassDiagram",
+      "category": "ClassNode",
       "name": "地址",
       "properties": [
         {
@@ -155,7 +155,7 @@
     },
     {
       "key": "前台",
-      "category": "ClassDiagram",
+      "category": "ClassNode",
       "name": "前台",
       "properties": [
         {
@@ -175,7 +175,7 @@
     },
     {
       "key": "床",
-      "category": "ClassDiagram",
+      "category": "ClassNode",
       "name": "床",
       "properties": [
         {
