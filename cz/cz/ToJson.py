@@ -26,9 +26,7 @@ def to(input_data1, input_data2):
         }
         nodeDataArray.append(template_data)
 
-    # 输出转换后的模板数据
-    for item in nodeDataArray:
-        print(item)
+
 
     # 创建一个空列表，用于存储转换后的数据(linkData)
     linkDataArray = []
@@ -97,10 +95,6 @@ def to(input_data1, input_data2):
 
                 })
 
-    # 输出转换后的数据
-    print("************************************")
-    for item in linkDataArray:
-        print(item)
 
     # ***************结果检测***************
     for item in nodeDataArray:
@@ -113,7 +107,7 @@ def to(input_data1, input_data2):
         if not has_unique:
             print(f"警告:{item['key']}类缺少唯一键！")
 
-        # 检测几对几的关系
+    # 检测几对几的关系
     for item in linkDataArray:
 
         if 'fromText' in item and 'toText' in item:
