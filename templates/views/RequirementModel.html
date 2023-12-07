@@ -135,11 +135,24 @@
       <div id="toolBar2" >
         <div class="toolBarIcon"> <img src="{% static 'public/images/toolBarIcon/openFile.png' %}" onclick="importJsonFile()" title="Open JSON File"> </div>
         <input type="file" id="importFile" style="display: none;" onchange="uploadJson(this)" />
+<!--        <div class="toolBarIcon"> <img src="{% static 'public/images/toolBarIcon/openFile.png' %}" onclick="importRequire()" title="Open Text File"> </div>-->
+<!--        <input type="file" id="importRequire" style="display: none;" onchange="uploadTxt(this)" />-->
+
+<!--          ******************************暂且*************************************-->
+<!--         <input type="file" id="fileInput" />-->
+<!--        <button onclick="uploadFile()">Upload File</button>-->
+<!--          *******************************************************************-->
         <div class="toolBarIcon"> <img src="{% static 'public/images/toolBarIcon/openFile.png' %}" onclick="importDocxOrTextFile()" title="Open DocxOrText File"> </div>
         <input type="file" id="importDocxOrTextFile" style="display: none;" onchange="uploadDocxOrTextFile(this)" />
         <div class="toolBarIcon"> <img src="{% static 'public/images/toolBarIcon/save.png' %}" onclick="exportJsonFile()" title="Save"> </div>
         <div class="toolBarIcon"> <img src="{% static 'public/images/toolBarIcon/zoomIn.png'%}" title="Zoom In"> </div>
         <div class="toolBarIcon"> <img src="{% static 'public/images/toolBarIcon/zoomOut.png' %}" title="Zoom Out"> </div>
+        <div class="toolBarIcon"> <img src="{% static 'public/images/toolBarIcon/openFile.png' %}" onclick="importRequireFile()" title="Open Require Text"> </div>
+        <input type="file" id="importRequire" style="display: none;" onchange="uploadFile(this)" />
+        <!-- <div >
+        <input type="file" id="fileInput" />
+        <button onclick="uploadFile()">Upload File</button>
+    </div> -->
       </div>
         <!--全景，截图-->
       <div id="toolBar3">

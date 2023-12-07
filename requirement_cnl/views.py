@@ -2,6 +2,9 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+
+from .utils import process_text
+from django.views.decorators.csrf import csrf_exempt
 from docx import Document
 import os
 from hanlp_restful import HanLPClient
@@ -41,6 +44,24 @@ def nlp_response(request):
 
 def index(request):
     return render(request, 'views/RequirementModel.html')
+
+
+@csrf_exempt
+def upload_file(request):
+    if request.method == 'POST':
+        try:
+            # Read the file content from the request body
+            file_content = request.body.decode('utf-8')
+
+            # Process the file content (you may replace this with your logic)
+            processed_result = process_text(file_content)
+
+            # Return the processed result as JSON
+            return JsonResponse({'result': processed_result})
+        except Exception as e:
+            return JsonResponse({'error': str(e)})
+
+    return JsonResponse({'error': 'Invalid request method'})
 
 @csrf_exempt
 def upload_docx_or_textfile(request):
