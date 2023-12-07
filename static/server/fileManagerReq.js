@@ -7,6 +7,10 @@ function importJsonFile() {
     $("#importFile").click();
     console.log("引入文件");
 }
+function importRequireFile() {
+    $("#importRequire").click();
+    console.log("引入文件");
+}
 
 function uploadJson(input) {  //支持chrome IE10
     if (window.FileReader) {
@@ -55,7 +59,7 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-
+// 提交文档 or txt(mgd)
 function importDocxOrTextFile() {
     $("#importDocxOrTextFile").click();
     console.log("importDocxOrTextFile");
@@ -122,6 +126,40 @@ function uploadDocxOrTextFile(input) {
 
 
 //##打开文件 End ##//
+
+//传入一个txt文件或者word文件，并且进行处理(CZ)
+function uploadFile(input) {
+
+    const file = input.files[0];
+
+    // Use FileReader to read the file content
+    const reader = new FileReader();
+
+    // Define the onload callback function
+    reader.onload = function (e) {
+        // Get the content of the file
+        const fileContent = e.target.result;
+
+        // Send the file content to the backend (Django)
+        fetch('http://127.0.0.1:8000/upload_file/', {
+            method: 'POST',
+            body: fileContent,  // Send the file content as the request body
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Display the result in the textarea
+            $("#myRequirementDiagramSavedModel").text(data.result);
+        RequirementDiagramLoad();
+        })
+        .catch(error => console.error('Error:', error));
+    };
+
+    // Read the file as text
+    reader.readAsText(file);
+}
+
+
+//##传入文件 End ##//
 
 function exportJsonFile(){
     let content = mySubDiagram.model.toJson();
