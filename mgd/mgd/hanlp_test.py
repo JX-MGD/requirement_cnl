@@ -24,11 +24,11 @@ text2_four="酒店的卧室有一个独特的房间号和一些床。"
 
 # doc = HanLP.parse(text,tasks='tok,pos,ner,srl,dep,con,parse')
 # 结果是中文依存标签
-doc = HanLP.parse(text1_final, tasks=["dep", "pos"])
-
-# 可视化依存句法树
-print("依存句法树--\n")
-doc.pretty_print()
+# doc = HanLP.parse(text1_final, tasks=["dep", "pos"])
+#
+# # 可视化依存句法树
+# print("依存句法树--\n")
+# doc.pretty_print()
 
 
 # 转化为CoNLL格式
@@ -46,7 +46,7 @@ doc.pretty_print()
 # "dep": 依存句法分析结果，每个子列表包含一个句子的依存关系信息，包括头部词索引和依存关系类型。
 # "sdp": 语义依存图分析结果，每个子列表包含一个句子的语义依存图信息，包括关系和关系的头部索引。
 # "con": 句法分析树结构，以中文括号表达的树结构表示句子的句法分析结果。
-print("doc--", doc)
+# print("doc--", doc)
 
 # 识别出来的类列表
 class_list = []
@@ -269,19 +269,19 @@ def togojsjson(class_list, relationship_list):
                        "nodeDataArray": class_data, "linkDataArray": relationship_data}, ensure_ascii=False)
 
 
-match(doc, class_list, relationship_list)
-print("class_list_leng",class_list.__len__())
+# match(doc, class_list, relationship_list)
+# print("class_list_leng",class_list.__len__())
 
 # 构建JSON数据结构
 
-print("---------Class列表----------------")
-# 打印class_list
-for item in class_list:
-    print(item.get_class_structure())
-print("-----------常规Class的Json-------------------")
-# 将列表转换为 JSON 数据格式
-json_data = tojson(class_list)
-print(json_data)
-print("-----------Gojs形式的Json-------------------")
-json_data= togojsjson(class_list, relationship_list)
-print(json_data)
+# print("---------Class列表----------------")
+# # 打印class_list
+# for item in class_list:
+#     print(item.get_class_structure())
+# print("-----------常规Class的Json-------------------")
+# # 将列表转换为 JSON 数据格式
+# json_data = tojson(class_list)
+# print(json_data)
+# print("-----------Gojs形式的Json-------------------")
+# json_data= togojsjson(class_list, relationship_list)
+# print(json_data)
