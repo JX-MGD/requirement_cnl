@@ -135,22 +135,22 @@ def have(root_position, dependency_list,pos_list, have_position, root_pos, root_
 
                                 Attribute_list.append(composition)
 
-    elif root_pos == 'vv':
-        print("根节点是vv")
+    # elif root_pos == 'vv':
+    #     print("根节点是vv")
     # 输出分类结果
-    else:
-        print("根节点错误，不执行后续操作")
+    # else:
+    #     print("根节点错误，不执行后续操作")
     if Class_list:
-        print("分类为 'Class' 的词汇：", Class_list)
+        # print("分类为 'Class' 的词汇：", Class_list)
         node_list.append(Class_list)
-    else:
-        print("没有分类为 'Class' 的词汇")
+    # else:
+    #     print("没有分类为 'Class' 的词汇")
 
     if Attribute_list:
-        print("分类为 'Attribute' 的词汇：", Attribute_list)
+        # print("分类为 'Attribute' 的词汇：", Attribute_list)
         node_list.append(Attribute_list)
-    else:
-        print("没有分类为 'Attribute_list' 的词汇")
+    # else:
+    #     print("没有分类为 'Attribute_list' 的词汇")
     return node_list
 
 
@@ -217,20 +217,20 @@ def Is(root_position, dependency_list):
                                 SpecialClass_list.append(composition)
 
 
-    else:
-        print("根节点不是 '是'，不执行后续操作")
+    # else:
+    #     print("根节点不是 '是'，不执行后续操作")
     # 输出分类结果
     if Class_list:
-        print("分类为 'Class' 的词汇：", Class_list)
+        # print("分类为 'Class' 的词汇：", Class_list)
         link_list.append(Class_list)
-    else:
-        print("没有分类为 'Class' 的词汇")
+    # else:
+    #     print("没有分类为 'Class' 的词汇")
     link_list.append('')
     if SpecialClass_list:
-        print("分类为 'SpecialClass' 的词汇：", SpecialClass_list)
+        # print("分类为 'SpecialClass' 的词汇：", SpecialClass_list)
         link_list.append(SpecialClass_list)
-    else:
-        print("没有分类为 'SpecialClass_list' 的词汇")
+    # else:
+    #     print("没有分类为 'SpecialClass_list' 的词汇")
     link_list.append('Generalize')
     # 返回node列表
     return link_list
@@ -297,24 +297,24 @@ def general(related_elements, root_position, dependency_list, root_mean):
                                         if dep[2] == 'nn' and sublist.index(dep) + 1 == sublist.index(dependency):
                                             composition = dep[0] + dependency[0]
                                 ToClass_list.append(composition)
-    else:
-        print("根节点不是vv词性，不执行后续操作")
+    # else:
+    #     print("根节点不是vv词性，不执行后续操作")
     # 输出分类结果
     if ToClass_list:
-        print("分类为 'ToClass' 的词汇：", FromClass_list)
+        # print("分类为 'ToClass' 的词汇：", FromClass_list)
         link_list.append(FromClass_list)
-    else:
-        print("没有分类为 'ToClass' 的词汇")
+    # else:
+    #     print("没有分类为 'ToClass' 的词汇")
 
     if root_mean:
-        print("方法为：", root_mean)
+        # print("方法为：", root_mean)
         link_list.append(root_mean)
 
     if FromClass_list:
-        print("分类为 'FromClass' 的词汇：", ToClass_list)
+        # print("分类为 'FromClass' 的词汇：", ToClass_list)
         link_list.append(ToClass_list)
-    else:
-        print("没有分类为 'FromClass' 的词汇")
+    # else:
+        # print("没有分类为 'FromClass' 的词汇")
     link_list.append('null')
     return link_list
 
@@ -383,19 +383,19 @@ def prep(prep_position, root_position, dependency_list):
                                 SpecialClass_list.append(composition)
 
 
-    else:
-        print("根节点不是'拥有'或'组成'，不执行后续操作")
+    # else:
+    #     print("根节点不是'拥有'或'组成'，不执行后续操作")
     # 输出分类结果
     if Class_list:
-        print("分类为 'Class' 的词汇：", Class_list)
+        # print("分类为 'Class' 的词汇：", Class_list)
         node_list.append(Class_list)
 
-    else:
-        print("没有分类为 'Class' 的词汇")
+    # else:
+    #     print("没有分类为 'Class' 的词汇")
 
     if SpecialClass_list:
-        print("分类为 'Attribute' 的词汇：", SpecialClass_list)
+        # print("分类为 'Attribute' 的词汇：", SpecialClass_list)
         node_list.append(SpecialClass_list)
-    else:
-        print("没有分类为 'Attribute' 的词汇")
+    # else:
+    #     print("没有分类为 'Attribute' 的词汇")
     return node_list

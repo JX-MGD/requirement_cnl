@@ -54,9 +54,3 @@ for sublist in nodeDataArray_pre:
 # 将合并后的数据转换为列表形式
 nodeDataArray = [[ [key], value] for key, value in merged_data.items()]
 
-# 输出结果
-for sublist in nodeDataArray:
-    print(sublist)
-print("***************")
-for sublist in linkDataArray:
-    print(sublist)

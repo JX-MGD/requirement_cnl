@@ -1,12 +1,10 @@
-import my_functions
-import split
+from cz.cz import split
 from fastHan import FastHan
 
 # 处理量词(必须4个)
 def Quantifierprocessing(text, linkDataArray):
-    sentences = split.split_sentences(text)
     model = FastHan()
-
+    answerlist = model(text, target="Parsing")
     for linklist in linkDataArray:
         values_to_check = [linklist[0][0], linklist[2][0]]
         first_positions = []
@@ -14,9 +12,7 @@ def Quantifierprocessing(text, linkDataArray):
         numberlist = []
         # 存储多关系对应对象
         manylist=[]
-        for sentence in sentences:
-            answer = model(sentence, target="Parsing")
-            print(answer)
+        for answer in answerlist:
             for sublist in answer[0]:
                 first_positions.append(sublist[0])
             # 检查是否所有值都存在于子列表中
