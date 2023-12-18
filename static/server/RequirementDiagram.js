@@ -942,6 +942,763 @@ function gojsInit() {
   );
 
 
+  // 类图关系
+  mySubDiagram.linkTemplateMap.add("Dependency_Default",
+    $$(go.Link, // the whole link panel
+      {
+        selectable: true,
+        // selectionAdornmentTemplate: linkSelectionAdornmentTemplate,
+        selectionAdornmentTemplate: $$(go.Adornment, "Link",
+          $$(go.Shape, {
+            isPanelMain: true,
+            fill: null,
+            stroke: "deepskyblue",
+            strokeWidth: 0,
+            strokeDashArray: [3, 2]
+          }),
+          $$(go.Shape, { // the arrowhead
+            toArrow: "Boomerang",
+            stroke: "deepskyblue"
+          })
+        ),
+        adjusting: go.Link.Stretch,
+        reshapable: true,
+        relinkableFrom: true,
+        relinkableTo: true, //设置线条可调整长度
+        toShortLength: 3,
+        /* routing: go.Link.AvoidsNodes, */ //每段都是垂直或者水平的 但会尽量避免交叉
+        corner: 5, //用于设置线条拐角处的圆滑程度 默认是0 ---此时转角处为直角
+        curve: go.Link.JumpOver //表示正交链路段在与其他正交链路段交叉时将会转
+      },
+      new go.Binding("points").makeTwoWay(),
+      $$(go.Shape, // the link path shape
+        { strokeWidth: 2, strokeDashArray: [3, 2] },
+        new go.Binding('stroke', 'linkstroke').makeTwoWay(),
+      ),
+      $$(go.Shape, // the arrowhead
+        { toArrow: "Boomerang", stroke: null },
+        new go.Binding("toArrow", "toArrow").makeTwoWay(),
+        new go.Binding("stroke", "linkStroke").makeTwoWay()
+      ),
+      // the "from" label
+      /*     $$(go.TextBlock,
+            {
+              textAlign: "center",
+              font: "bold 14px sans-serif",
+              stroke: "#1967B3",
+              segmentIndex: 0,
+              segmentOffset: new go.Point(NaN, NaN),
+              segmentOrientation: go.Link.OrientUpright, editable: true
+            },
+            new go.Binding("text", "fromtext").makeTwoWay()), */
+      // the "to" label
+      /*    $$(go.TextBlock,
+         {
+           textAlign: "center",
+           font: "bold 14px sans-serif",
+           stroke: "#1967B3",
+           segmentIndex: -1,
+           segmentOffset: new go.Point(NaN, NaN),
+           segmentOrientation: go.Link.OrientUpright, editable: true //使0.....N的文本块的角度 也就是方向与线的角度（方向）相同
+         },
+         new go.Binding("text", "toText").makeTwoWay()), */
+    )
+  );
+
+  //泛化关系
+  mySubDiagram.linkTemplateMap.add("Generalize",
+    $$(go.Link, // the whole link panel
+      {
+        selectable: true,
+        //  selectionAdornmentTemplate: linkSelectionAdornmentTemplate,
+        selectionAdornmentTemplate: $$(go.Adornment, "Link",
+          $$(go.Shape, {
+            isPanelMain: true,
+            fill: null,
+            stroke: "deepskyblue",
+            strokeWidth: 0,
+          }),
+          $$(go.Shape, { // the arrowhead
+            toArrow: "Triangle",
+            scale: 1.7,
+            fill: "white",
+            stroke: "deepskyblue"
+          })
+        ),
+        adjusting: go.Link.Stretch,
+        reshapable: true,
+        relinkableFrom: true,
+        relinkableTo: true, //设置线条可调整长度
+        toShortLength: 3,
+        /* routing: go.Link.AvoidsNodes, */ //每段都是垂直或者水平的 但会尽量避免交叉
+        corner: 3, //用于设置线条拐角处的圆滑程度 默认是0 ---此时转角处为直角
+        curve: go.Link.JumpOver,
+        //表示正交链路段在与其他正交链路段交叉时将会转向
+
+      },
+      $$(go.Shape, // the link path shape
+        {
+          isPanelMain: true,
+          strokeWidth: 2,
+          stroke: "black",
+        },
+        new go.Binding('stroke', 'linkstroke').makeTwoWay(),
+      ),
+      $$(go.Shape, // the arrowhead
+        {
+          toArrow: "Triangle",
+          scale: 1.7,
+          fill: "white"
+        },
+        new go.Binding("toArrow", "toArrow").makeTwoWay(),
+        new go.Binding("fill", "fill").makeTwoWay(),
+        new go.Binding("stroke", "linkStroke").makeTwoWay()
+      ),
+      // the "from" label
+      /*  $$(go.TextBlock,
+         {
+           textAlign: "center",
+           font: "bold 14px sans-serif",
+           stroke: "#1967B3",
+           segmentIndex: 0,
+           segmentOffset: new go.Point(NaN, NaN), 靠近link时候建议设置为 (NAN,NAN)
+           segmentOrientation: go.Link.OrientUpright, editable: true
+         },
+         new go.Binding("text", "fromtext", function (e) {
+
+           return e
+         }).makeTwoWay()), */
+      // the "to" label
+      /* $$(go.TextBlock,
+        {
+          textAlign: "center",
+          font: "bold 14px sans-serif",
+          stroke: "#1967B3",
+          segmentIndex: -1,
+          segmentOffset: new go.Point(NaN, NaN),
+          segmentOrientation: go.Link.OrientUpright,
+          editable: true  使0.....N的文本块的角度 也就是方向与线的角度（方向）相同
+        },
+        new go.Binding("text", "toText", function (e) {
+          return e
+        }).makeTwoWay()), */
+      new go.Binding("points").makeTwoWay()
+    )
+  );
+  //关联关系_无箭头
+  mySubDiagram.linkTemplateMap.add("Association_NoArrow",
+    $$(go.Link, // the whole link panel
+      {
+        selectable: true,
+        // selectionAdornmentTemplate: linkSelectionAdornmentTemplate,
+        selectionAdornmentTemplate: $$(go.Adornment, "Link",
+          $$(go.Shape, {
+            isPanelMain: true,
+            fill: null,
+            stroke: "deepskyblue",
+            strokeWidth: 0,
+          }),
+          /*  $$(go.Shape, { // the arrowhead
+               toArrow: "Triangle",
+               scale: 1.7,
+               fill: "white",
+               stroke: "deepskyblue"
+           }, ) */
+        ),
+        adjusting: go.Link.Stretch,
+        reshapable: true,
+        relinkableFrom: true,
+        relinkableTo: true, //设置线条可调整长度
+        toShortLength: 3,
+        /* routing: go.Link.AvoidsNodes, */ //每段都是垂直或者水平的 但会尽量避免交叉
+        corner: 5, //用于设置线条拐角处的圆滑程度 默认是0 ---此时转角处为直角
+        curve: go.Link.JumpOver //表示正交链路段在与其他正交链路段交叉时将会转向
+      },
+      $$(go.Shape, // the link path shape
+        {
+          isPanelMain: true,
+          strokeWidth: 2,
+        },
+        new go.Binding('stroke', 'linkstroke').makeTwoWay(),
+      ),
+      // the "from" label
+      $$(go.TextBlock,
+        {
+          textAlign: "center",
+          font: "bold 14px sans-serif",
+          /*  stroke: "#1967B3", */
+          segmentIndex: 0,
+          segmentOffset: new go.Point(NaN, NaN), //靠近link时候建议设置为 (NAN,NAN)
+          segmentOrientation: go.Link.OrientUpright, editable: true
+        },
+        new go.Binding("text", "fromText").makeTwoWay()),
+      $$(go.TextBlock, //注释的内容 表明依赖的关系
+        {
+          textAlign: "center",
+          font: "bold 10px sans-serif",
+          /*  stroke: "#1967B3", */
+          segmentIndex: -5,
+          segmentOffset: new go.Point(NaN, NaN), //靠近link时候建议设置为 (NAN,NAN)
+          segmentOrientation: go.Link.OrientUpright, editable: true
+        },
+        new go.Binding("text", "nodeText").makeTwoWay()),
+      // the "to" label
+      $$(go.TextBlock,
+        {
+          textAlign: "center",
+          font: "bold 14px sans-serif",
+          /*  stroke: "#1967B3", */
+          segmentIndex: -1,
+          segmentOffset: new go.Point(NaN, NaN),
+          segmentOrientation: go.Link.OrientUpright, editable: true //使0.....N的文本块的角度 也就是方向与线的角度（方向）相同
+        },
+        new go.Binding("text", "toText").makeTwoWay()),
+      new go.Binding("points").makeTwoWay()
+    )
+  );
+  //关联关系 带箭头
+  mySubDiagram.linkTemplateMap.add("Association",
+    $$(go.Link, // the whole link panel
+      {
+        selectable: true,
+        // selectionAdornmentTemplate: linkSelectionAdornmentTemplate,
+        selectionAdornmentTemplate: $$(go.Adornment, "Link",
+          $$(go.Shape, {
+            isPanelMain: true,
+            fill: null,
+            stroke: "deepskyblue",
+            strokeWidth: 0,
+          }),
+          $$(go.Shape, { // the arrowhead
+            toArrow: "Triangle",
+            scale: 1.7,
+            fill: "white",
+            stroke: "deepskyblue"
+          },)
+        ),
+        adjusting: go.Link.Stretch,
+        reshapable: true,
+        relinkableFrom: true,
+        relinkableTo: true, //设置线条可调整长度
+        toShortLength: 3,
+        /* routing: go.Link.AvoidsNodes, */ //每段都是垂直或者水平的 但会尽量避免交叉
+        corner: 5, //用于设置线条拐角处的圆滑程度 默认是0 ---此时转角处为直角
+        curve: go.Link.JumpOver //表示正交链路段在与其他正交链路段交叉时将会转向
+      },
+      $$(go.Shape, // the link path shape
+        {
+          isPanelMain: true,
+          strokeWidth: 2,
+          stroke: 'black'
+        },
+        new go.Binding('stroke', 'linkstroke').makeTwoWay((e, v, m) => {
+          /*   console.log(v) */
+        }),
+      ),
+      $$(go.Shape, // the arrowhead
+        { toArrow: "Boomerang", stroke: null },
+        new go.Binding("toArrow", "toArrow").makeTwoWay(),
+        new go.Binding("stroke", "linkStroke").makeTwoWay()
+      ),
+      // the "from" label
+      $$(go.TextBlock,
+        {
+          textAlign: "center",
+          font: "bold 14px sans-serif",
+          /*  stroke: "#1967B3", */
+          segmentIndex: 0,
+          segmentOffset: new go.Point(NaN, NaN), //靠近link时候建议设置为 (NAN,NAN)
+          segmentOrientation: go.Link.OrientUpright, editable: true
+        },
+        new go.Binding("text", "fromText").makeTwoWay()),
+      $$(go.TextBlock, //注释的内容 表明依赖的关系
+        {
+          textAlign: "center",
+          font: "bold 10px sans-serif",
+          /*  stroke: "#1967B3", */
+          segmentIndex: -6,
+          segmentOffset: new go.Point(NaN, NaN), //靠近link时候建议设置为 (NAN,NAN)
+          segmentOrientation: go.Link.OrientUpright, editable: true
+        },
+
+        new go.Binding("text", "nodeText").makeTwoWay((e, v, m) => {
+        }
+        )
+
+      ),
+      // the "to" label
+      $$(go.TextBlock,
+        {
+          textAlign: "center",
+          font: "bold 14px sans-serif",
+          /*  stroke: "#1967B3", */
+          segmentIndex: -1,
+          segmentOffset: new go.Point(NaN, NaN),
+          segmentOrientation: go.Link.OrientUpright, editable: true //使0.....N的文本块的角度 也就是方向与线的角度（方向）相同
+        },
+        new go.Binding("text", "toText").makeTwoWay()),
+      new go.Binding("points").makeTwoWay()
+    )
+  );
+
+  //聚合关系
+  mySubDiagram.linkTemplateMap.add("Aggregate",
+    $$(go.Link, // the whole link panel
+      {
+        selectable: true,
+        // selectionAdornmentTemplate: linkSelectionAdornmentTemplate,
+        selectionAdornmentTemplate: $$(go.Adornment, "Link",
+          $$(go.Shape, {
+            isPanelMain: true,
+            fill: null,
+            stroke: "deepskyblue",
+            strokeWidth: 0,
+          }),
+          $$(go.Shape, { // the arrowhead
+            toArrow: "StretchedDiamond",
+            scale: 1.7,
+            fill: "white",
+            stroke: "deepskyblue"
+          })
+        ),
+        adjusting: go.Link.Stretch,
+        reshapable: true,
+        relinkableFrom: true,
+        relinkableTo: true, //设置线条可调整长度
+        toShortLength: 3,
+        /* routing: go.Link.AvoidsNodes, */ //每段都是垂直或者水平的 但会尽量避免交叉
+        corner: 5, //用于设置线条拐角处的圆滑程度 默认是0 ---此时转角处为直角
+        curve: go.Link.JumpOver //表示正交链路段在与其他正交链路段交叉时将会转向
+      },
+      $$(go.Shape, // the link path shape
+        {
+          isPanelMain: true,
+          strokeWidth: 2,
+        },
+        new go.Binding('stroke', 'linkstroke').makeTwoWay(),
+      ),
+      $$(go.Shape, // the arrowhead
+        {
+          toArrow: "StretchedDiamond",
+          scale: 1.7,
+          fill: "white"
+        },
+        new go.Binding("toArrow", "toArrow").makeTwoWay(),
+        new go.Binding("fill", "fill").makeTwoWay(),
+        new go.Binding("stroke", "linkStroke").makeTwoWay()
+      ),
+      // the "from" label
+      /*  $$(go.TextBlock,
+         {
+           textAlign: "center",
+           font: "bold 14px sans-serif",
+           stroke: "#1967B3",
+           segmentIndex: 0,
+           segmentOffset: new go.Point(NaN, NaN), 靠近link时候建议设置为 (NAN,NAN)
+           segmentOrientation: go.Link.OrientUpright, editable: true
+         },
+         new go.Binding("text", "fromtext").makeTwoWay()), */
+      // the "to" label
+      /*    $$(go.TextBlock,
+           {
+             textAlign: "center",
+             font: "bold 14px sans-serif",
+             stroke: "#1967B3",
+             segmentIndex: -1,
+             segmentOffset: new go.Point(NaN, NaN),
+             segmentOrientation: go.Link.OrientUpright, editable: true 使0.....N的文本块的角度 也就是方向与线的角度（方向）相同
+           },
+           new go.Binding("text", "toText").makeTwoWay()), */
+      new go.Binding("points").makeTwoWay()
+    )
+  );
+
+  //组合关系
+  mySubDiagram.linkTemplateMap.add("Compose",
+    $$(go.Link, // the whole link panel
+      {
+        selectable: true,
+        // selectionAdornmentTemplate: linkSelectionAdornmentTemplate,
+        selectionAdornmentTemplate: $$(go.Adornment, "Link",
+          $$(go.Shape, {
+            isPanelMain: true,
+            fill: null,
+            stroke: "deepskyblue",
+            strokeWidth: 0,
+          }),
+          $$(go.Shape, { // the arrowhead
+            toArrow: "StretchedDiamond",
+            scale: 1.7,
+            fill: "white",
+            stroke: "deepskyblue"
+          })
+        ),
+        adjusting: go.Link.Stretch,
+        reshapable: true,
+        relinkableFrom: true,
+        relinkableTo: true, //设置线条可调整长度
+        toShortLength: 3,
+        /* routing: go.Link.AvoidsNodes, */ //每段都是垂直或者水平的 但会尽量避免交叉
+        corner: 5, //用于设置线条拐角处的圆滑程度 默认是0 ---此时转角处为直角
+        curve: go.Link.JumpOver //表示正交链路段在与其他正交链路段交叉时将会转向
+      },
+      $$(go.Shape, // the link path shape
+        {
+          isPanelMain: true,
+          strokeWidth: 2,
+        },
+        new go.Binding('stroke', 'linkstroke').makeTwoWay(),
+      ),
+      $$(go.Shape, // the arrowhead
+        {
+          toArrow: "StretchedDiamond",
+          scale: 1.7,
+          fill: "black"
+        },
+        new go.Binding("toArrow", "toArrow").makeTwoWay(),
+        new go.Binding("fill", "fill").makeTwoWay(),
+        new go.Binding("stroke", "linkStroke").makeTwoWay()
+      ),
+      // the "from" label
+      /* $$(go.TextBlock,
+        {
+          textAlign: "center",
+          font: "bold 14px sans-serif",
+          stroke: "#1967B3",
+          segmentIndex: 0,
+          segmentOffset: new go.Point(NaN, NaN), 靠近link时候建议设置为 (NAN,NAN)
+          segmentOrientation: go.Link.OrientUpright, editable: true
+        },
+        new go.Binding("text", "fromtext").makeTwoWay()), */
+      // the "to" label
+      /*  $$(go.TextBlock,
+         {
+           textAlign: "center",
+           font: "bold 14px sans-serif",
+           stroke: "#1967B3",
+           segmentIndex: -1,
+           segmentOffset: new go.Point(NaN, NaN),
+           segmentOrientation: go.Link.OrientUpright, editable: true //使0.....N的文本块的角度 也就是方向与线的角度（方向）相同
+         },
+         new go.Binding("text", "toText").makeTwoWay()), */
+      new go.Binding("points").makeTwoWay()
+    )
+  );
+  //实现关系
+  mySubDiagram.linkTemplateMap.add("Realization",
+    $$(go.Link, // the whole link panel
+      {
+        selectable: true,
+        // selectionAdornmentTemplate: linkSelectionAdornmentTemplate,
+        selectionAdornmentTemplate: $$(go.Adornment, "Link",
+          $$(go.Shape, {
+            isPanelMain: true,
+            fill: null,
+            stroke: "deepskyblue",
+            strokeWidth: 0,
+          }),
+          $$(go.Shape, { // the arrowhead
+            toArrow: "StretchedDiamond",
+            scale: 1.7,
+            fill: "white",
+            stroke: "deepskyblue"
+          })
+        ),
+        adjusting: go.Link.Stretch,
+        reshapable: true,
+        relinkableFrom: true,
+        relinkableTo: true, //设置线条可调整长度
+        toShortLength: 3,
+        /* routing: go.Link.AvoidsNodes, */ //每段都是垂直或者水平的 但会尽量避免交叉
+        corner: 5, //用于设置线条拐角处的圆滑程度 默认是0 ---此时转角处为直角
+        curve: go.Link.JumpOver, //表示正交链路段在与其他正交链路段交叉时将会转向
+        /* dash: [3, 2] */
+      },
+      $$(go.Shape, // the link path shape
+        {
+          isPanelMain: true,
+          strokeWidth: 2,
+
+        },
+        new go.Binding("stroke", "linkStroke").makeTwoWay(),
+        new go.Binding("strokeDashArray", "dash")
+      ),
+      $$(go.Shape, // the arrowhead
+        {
+          toArrow: "Triangle",
+          scale: 1.7,
+          fill: "white"
+        },
+        new go.Binding("toArrow", "toArrow").makeTwoWay(),
+        new go.Binding("fill", "fill").makeTwoWay(),
+        new go.Binding("stroke", "linkStroke").makeTwoWay()
+      ),
+      // the "from" label
+      /*  $$(go.TextBlock,
+         {
+           textAlign: "center",
+           font: "bold 14px sans-serif",
+           stroke: "#1967B3",
+           segmentIndex: 0,
+           segmentOffset: new go.Point(NaN, NaN), 靠近link时候建议设置为 (NAN,NAN)
+           segmentOrientation: go.Link.OrientUpright, editable: true
+         },
+         new go.Binding("text", "fromtext").makeTwoWay()), */
+      // the "to" label
+      /*   $$(go.TextBlock,
+          {
+            textAlign: "center",
+            font: "bold 14px sans-serif",
+            stroke: "#1967B3",
+            segmentIndex: -1,
+            segmentOffset: new go.Point(NaN, NaN),
+            segmentOrientation: go.Link.OrientUpright, editable: true 使0.....N的文本块的角度 也就是方向与线的角度（方向）相同
+          },
+          new go.Binding("text", "toText").makeTwoWay()), */
+      new go.Binding("points").makeTwoWay()
+    )
+  );
+  //依赖关系
+  mySubDiagram.linkTemplateMap.add("Denpendency",
+    $$(go.Link, // the whole link panel
+      {
+        selectable: true,
+        // selectionAdornmentTemplate: linkSelectionAdornmentTemplate,
+        selectionAdornmentTemplate: $$(go.Adornment, "Link",
+          $$(go.Shape, {
+            isPanelMain: true,
+            fill: null,
+            stroke: "deepskyblue",
+            strokeWidth: 0,
+          }),
+          $$(go.Shape, { // the arrowhead
+            toArrow: "Boomerang",
+            scale: 1.7,
+            fill: "white",
+            stroke: "deepskyblue"
+          })
+        ),
+        adjusting: go.Link.Stretch,
+        reshapable: true,
+        relinkableFrom: true,
+        relinkableTo: true, //设置线条可调整长度
+        toShortLength: 3,
+        /* routing: go.Link.AvoidsNodes, */ //每段都是垂直或者水平的 但会尽量避免交叉
+        corner: 5, //用于设置线条拐角处的圆滑程度 默认是0 ---此时转角处为直角
+        curve: go.Link.JumpOver, //表示正交链路段在与其他正交链路段交叉时将会转向
+        /* dash: [3, 2] */
+      },
+      $$(go.Shape, // the link path shape
+        {
+          isPanelMain: true,
+          strokeWidth: 2,
+
+        },
+        new go.Binding("stroke", "linkStroke").makeTwoWay(),
+        new go.Binding("strokeDashArray", "dash")
+      ),
+      $$(go.Shape, // the arrowhead
+        { toArrow: "Boomerang", stroke: null },
+        new go.Binding("toArrow", "toArrow").makeTwoWay(),
+        new go.Binding("stroke", "linkStroke").makeTwoWay()
+      ),
+      // the "from" label
+      /*   $$(go.TextBlock,
+          {
+            textAlign: "center",
+            font: "bold 14px sans-serif",
+            stroke: "#1967B3",
+            segmentIndex: 0,
+            segmentOffset: new go.Point(NaN, NaN),
+            segmentOrientation: go.Link.OrientUpright, editable: true
+          },
+          new go.Binding("text", "fromtext").makeTwoWay()), */
+      $$(go.TextBlock, //注释的内容 表明依赖的关系
+        {
+          textAlign: "center",
+          font: "bold 14px sans-serif",
+          /*  stroke: "#1967B3", */
+          segmentIndex: -4,
+          segmentOffset: new go.Point(NaN, NaN), //靠近link时候建议设置为 (NAN,NAN)
+          segmentOrientation: go.Link.OrientUpright, editable: true
+        },
+        new go.Binding("text", "nodeText").makeTwoWay()),
+      // the "to" label
+      /*  $$(go.TextBlock,
+       {
+         textAlign: "center",
+         font: "bold 14px sans-serif",
+         stroke: "#1967B3",
+         segmentIndex: -1,
+         segmentOffset: new go.Point(NaN, NaN),
+         segmentOrientation: go.Link.OrientUpright,
+         editable: true
+       },
+       new go.Binding("text", "toText").makeTwoWay()), */
+      new go.Binding("points").makeTwoWay()
+    )
+  );
+  //使用关系
+  mySubDiagram.linkTemplateMap.add("Use",
+    $$(go.Link, // the whole link panel
+      {
+        selectable: true,
+        // selectionAdornmentTemplate: linkSelectionAdornmentTemplate,
+        selectionAdornmentTemplate: $$(go.Adornment, "Link",
+          $$(go.Shape, {
+            isPanelMain: true,
+            fill: null,
+            stroke: "deepskyblue",
+            strokeWidth: 0,
+          }),
+          $$(go.Shape, { // the arrowhead
+            toArrow: "Boomerang",
+            scale: 1.7,
+            fill: "white",
+            stroke: "deepskyblue"
+          })
+        ),
+        adjusting: go.Link.Stretch,
+        reshapable: true,
+        relinkableFrom: true,
+        relinkableTo: true, //设置线条可调整长度
+        toShortLength: 3,
+        /* routing: go.Link.AvoidsNodes, */ //每段都是垂直或者水平的 但会尽量避免交叉
+        corner: 5, //用于设置线条拐角处的圆滑程度 默认是0 ---此时转角处为直角
+        curve: go.Link.JumpOver, //表示正交链路段在与其他正交链路段交叉时将会转向
+        /* dash: [3, 2] */
+      },
+      $$(go.Shape, // the link path shape
+        {
+          isPanelMain: true,
+          strokeWidth: 2,
+        },
+        new go.Binding('stroke', 'linkstroke').makeTwoWay(),
+        new go.Binding("strokeDashArray", "dash")
+      ),
+      $$(go.Shape, // the arrowhead
+        { toArrow: "Boomerang", stroke: null },
+        new go.Binding("toArrow", "toArrow").makeTwoWay(),
+        new go.Binding("stroke", "linkStroke").makeTwoWay()
+      ),
+      // the "from" label
+      /*  $$(go.TextBlock,
+         {
+           textAlign: "center",
+           font: "bold 14px sans-serif",
+           stroke: "#1967B3",
+           segmentIndex: 0,
+           segmentOffset: new go.Point(NaN, NaN), 靠近link时候建议设置为 (NAN,NAN)
+           segmentOrientation: go.Link.OrientUpright
+         },
+         new go.Binding("text", "fromtext")), */
+      $$(go.TextBlock, "<<use>>", // the 注释 label
+        {
+          textAlign: "center",
+          font: "9pt helvetica, arial, sans-serif",
+          /*  stroke: "#1967B3", */
+          segmentIndex: -6,
+          segmentOffset: new go.Point(NaN, NaN), //靠近link时候建议设置为 (NAN,NAN)
+          segmentOrientation: go.Link.OrientUpright
+        },
+        new go.Binding("text", "fromtext")),
+      // the "to" label
+      /*  $$(go.TextBlock,
+         {
+           textAlign: "center",
+           font: "bold 14px sans-serif",
+           stroke: "#1967B3",
+           segmentIndex: -1,
+           segmentOffset: new go.Point(NaN, NaN),
+           segmentOrientation: go.Link.OrientUpright 使0.....N的文本块的角度 也就是方向与线的角度（方向）相同
+         },
+         new go.Binding("text", "toText")), */
+      new go.Binding("points").makeTwoWay()
+    )
+  );
+  //追踪关系
+  mySubDiagram.linkTemplateMap.add("Trace",
+    $$(go.Link, // the whole link panel
+      {
+        selectable: true,
+        // selectionAdornmentTemplate: linkSelectionAdornmentTemplate,
+        selectionAdornmentTemplate: $$(go.Adornment, "Link",
+          $$(go.Shape, {
+            isPanelMain: true,
+            fill: null,
+            stroke: "deepskyblue",
+            strokeWidth: 0,
+          }),
+          $$(go.Shape, { // the arrowhead
+            toArrow: "Boomerang",
+            scale: 1.7,
+            fill: "white",
+            stroke: "deepskyblue"
+          })
+        ),
+        adjusting: go.Link.Stretch,
+        reshapable: true,
+        relinkableFrom: true,
+        relinkableTo: true, //设置线条可调整长度
+        toShortLength: 3,
+        /* routing: go.Link.AvoidsNodes, */ //每段都是垂直或者水平的 但会尽量避免交叉
+        corner: 5, //用于设置线条拐角处的圆滑程度 默认是0 ---此时转角处为直角
+        curve: go.Link.JumpOver, //表示正交链路段在与其他正交链路段交叉时将会转向
+        /* dash: [3, 2] */
+      },
+      $$(go.Shape, // the link path shape
+        {
+          isPanelMain: true,
+          strokeWidth: 2,
+        },
+        new go.Binding('stroke', 'linkstroke').makeTwoWay(),
+        new go.Binding("strokeDashArray", "dash")
+      ),
+      $$(go.Shape, // the arrowhead
+        { toArrow: "Boomerang", stroke: null },
+        new go.Binding("toArrow", "toArrow").makeTwoWay(),
+        new go.Binding("stroke", "linkStroke").makeTwoWay()
+      ),
+      // the "from" label
+      /*  $$(go.TextBlock,
+         {
+           textAlign: "center",
+           font: "bold 14px sans-serif",
+           stroke: "#1967B3",
+           segmentIndex: 0,
+           segmentOffset: new go.Point(NaN, NaN), 靠近link时候建议设置为 (NAN,NAN)
+           segmentOrientation: go.Link.OrientUpright
+         },
+         new go.Binding("text", "fromtext")), */
+      $$(go.TextBlock, "<<trace>>", // the 注释 label
+        {
+          textAlign: "center",
+          font: "9pt helvetica, arial, sans-serif",
+          /*  stroke: "#1967B3", */
+          segmentIndex: -6,
+          segmentOffset: new go.Point(NaN, NaN), //靠近link时候建议设置为 (NAN,NAN)
+          segmentOrientation: go.Link.OrientUpright
+        },
+        new go.Binding("text", "fromtext")),
+      // the "to" label
+      /*  $$(go.TextBlock,
+         {
+           textAlign: "center",
+           font: "bold 14px sans-serif",
+           stroke: "#1967B3",
+           segmentIndex: -1,
+           segmentOffset: new go.Point(NaN, NaN),
+           segmentOrientation: go.Link.OrientUpright 使0.....N的文本块的角度 也就是方向与线的角度（方向）相同
+         },
+         new go.Binding("text", "toText")), */
+      new go.Binding("points").makeTwoWay()
+    )
+  );
+
+
+
+
+
 
   //################ 画图区域Part样式 Start ################ by:ljq//
   // The background Part showing the sheet of paper;
@@ -1165,6 +1922,113 @@ function gojsInit() {
           text: paletteItemName
         });
         break;
+
+
+      case "Association":
+        model.addLinkData({
+          category: "Association",
+          points: new go.List(go.Point).addAll([q2, q]),
+          text: "association",
+          //关联多重性的初始化
+          fromText: "",
+          toText: "",
+          // iligal: false,
+          nodeText: "▶working on"
+        });
+        break;
+      case "Association_NoArrow":
+        model.addLinkData({
+          category: "Association_NoArrow",
+          points: new go.List(go.Point).addAll([q2, q]),
+          text: "association_noarrow",
+          //关联多重性的初始化
+          fromtext: "",
+          toText: "",
+          nodeText: "▶working on"
+
+        });
+        break;
+      case "Containment":
+        model.addLinkData({
+          category: "Containment",
+          points: new go.List(go.Point).addAll([q2, q]),
+          text: "containment",
+          //关联多重性的初始化
+          /*  fromtext: "0",
+           toText: "1", */
+
+        });
+        break;
+      case "Generalize":
+        model.addLinkData({
+          category: "Generalize",
+          points: new go.List(go.Point).addAll([q2, q]),
+          //关联多重性的初始化
+          /*  fromtext: "0",
+           toText: "1", */
+        });
+        break;
+      case "Aggregate":
+        model.addLinkData({
+          category: "Aggregate",
+          points: new go.List(go.Point).addAll([q2, q]), //添加要加入的集合
+          //关联多重性的初始化
+          /*  fromtext: "0",
+           toText: "1", */
+        });
+        break;
+      case "Compose":
+        model.addLinkData({
+          category: "Compose",
+          points: new go.List(go.Point).addAll([q2, q]),
+          //关联多重性的初始化
+          /*   fromtext: "0",
+            toText: "1", */
+        });
+        break;
+      case "Realization":
+        model.addLinkData({
+          category: "Realization",
+          points: new go.List(go.Point).addAll([q2, q]),
+          //关联多重性的初始化
+          /*  fromtext: "0",
+           toText: "1", */
+          dash: [5, 5]
+        });
+        break;
+      case "Denpendency":
+        model.addLinkData({
+          category: "Denpendency",
+          points: new go.List(go.Point).addAll([q2, q]),
+          //关联多重性的初始化
+          /*  fromtext: "0",
+           toText: "1", */
+          nodeText: "▶relation",
+          dash: [5, 5]
+        });
+        break;
+      case "Use":
+        model.addLinkData({
+          category: "Use",
+          points: new go.List(go.Point).addAll([q2, q]),
+          //关联多重性的初始化
+          /*  fromtext: "0",
+           toText: "1", */
+          dash: [5, 5],
+        });
+        break;
+      case "Trace":
+        model.addLinkData({
+          category: "Trace",
+          points: new go.List(go.Point).addAll([q2, q]),
+          //关联多重性的初始化
+          /*  fromtext: "0",
+           toText: "1", */
+          dash: [5, 5],
+        });
+
+
+
 
       default:
         break;
