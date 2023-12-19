@@ -19,14 +19,12 @@ def to(input_data1, input_data2):
         # 构建模板数据并添加到输出列表
         template_data = {
             "key": key_and_name,
-            "category": "ClassDiagram",
+            "category": "ClassNode",
             "name": key_and_name,
             "properties": properties,
             "text": key_and_name
         }
         nodeDataArray.append(template_data)
-
-
 
     # 创建一个空列表，用于存储转换后的数据(linkData)
     linkDataArray = []
@@ -95,7 +93,6 @@ def to(input_data1, input_data2):
 
                 })
 
-
     # ***************结果检测***************
     for item in nodeDataArray:
 
@@ -122,7 +119,7 @@ def to(input_data1, input_data2):
             if Classname == item['from'] or Classname == item['to']:
                 found = True
         if not found:
-            print("警告:"+Classname+"类与其他类之间没有关联！")
+            print("警告:" + Classname + "类与其他类之间没有关联！")
 
     import json
     # 构建最终的 JSON 数据
