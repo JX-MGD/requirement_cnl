@@ -9,10 +9,7 @@ text = ("要编辑文件，用户必须打开文件，进行更改，保存文�
 # text = "为了退出应用程序，用户必须按下红色按钮;为了退出应用程序，用户必须按下红色的按钮;为了退出应用程序，用户必须按下方形的按钮;"
 # 待匹配的句子
 sentences = split.split_sentences(text)
-for sentence in sentences:
-    model = FastHan()
-    answer = model(sentence, target="Parsing")
-    print(answer)
+answer = model(text, target="Parsing")
 # 存储匹配结果的列表
 matches = []
 # 定义匹配模式1
@@ -95,44 +92,48 @@ print(clustered_sentences)
 for cluster in clustered_sentences:
     target = cluster["target"]
     sentence_indices = cluster["sentence_indices"]
-
+    # 把相同目标的句子打包成一段话传给fasthan
+    combined_sentence = ''
+    for sentence_index in sentence_indices:
+        combined_sentence = combined_sentence + ';' + sentences[sentence_index - 1]
     # 遍历 sentence_indices 列表中的数字，选择遍历第几条句子
     # 所有句子的动作链由actions保存
     actions = []
     # 所有句子的属性都由attrs保存
     attrs = []
     root_position = None
-    for sentence_index in sentence_indices:
+    answer = model(combined_sentence, target="Parsing")
+
+    for answerlist, sentence_index in zip(answer, sentence_indices):
         # 处理相应的逻辑
-        answer = model(sentences[sentence_index - 1], target="Parsing")
-        pos = model(sentences[sentence_index - 1], target="POS")
+
         # 找到root的位置和属性的位置(attrindex)
         attrindex = None
-        for dependency in answer[0][0]:
+        for dependency in answerlist[0]:
             if 'root' in dependency:
                 if dependency[0] != '进行':
-                    root_position = answer[0][0].index(dependency) + 1
+                    root_position = answerlist[0].index(dependency) + 1
                 # “进行”在依存分析中不能当作连词导向
                 elif dependency[0] == '进行':
-                    root_position = answer[0][0].index(dependency) + 2
+                    root_position = answerlist[0].index(dependency) + 2
             # 仅做测试,属性列表暂且为按钮
             if '按钮' in dependency:
-                attrindex = answer[0][0].index(dependency) + 1
+                attrindex = answerlist[0].index(dependency) + 1
 
         # 当前所在句子的动作链由actionlist保存
         actionlist = []
         # 遍历每一条需要的句子
         flag = False
-        for dependency in answer[0][0]:
+        for dependency in answerlist[0]:
             action = None
 
             if dependency[2] == 'root' or (
                     dependency[2] in ['conj', 'dep'] and dependency[1] in [root_position, root_position + 1]):
-                verb_index = answer[0][0].index(dependency) + 1
+                verb_index = answerlist[0].index(dependency) + 1
                 # 若root节点或连词后跟'ccomp', 'nn', 'vmod'的情况(root节点或连词一定为'进行'且后面跟动作)
-                if answer[0][0][verb_index][2] in ['ccomp', 'nn', 'vmod']:
-                    action = answer[0][0][verb_index][0]
-                    for noun in answer[0][0]:
+                if answerlist[0][verb_index][2] in ['ccomp', 'nn', 'vmod']:
+                    action = answerlist[0][verb_index][0]
+                    for noun in answerlist[0]:
                         if noun[2] == 'dobj' and noun[1] == verb_index + 1:
                             action += noun[0]
                             break
@@ -141,10 +142,10 @@ for cluster in clustered_sentences:
                 # root节点或连词可能为'进行'且自己表动作(!)/一般动作(√)
                 else:
                     # root节点或连词表一般动作
-                    if answer[0][0][answer[0][0].index(dependency)][0] != '进行':
-                        verb_index = answer[0][0].index(dependency)
-                        action = answer[0][0][verb_index][0]
-                        for noun in answer[0][0]:
+                    if answerlist[0][answerlist[0].index(dependency)][0] != '进行':
+                        verb_index = answerlist[0].index(dependency)
+                        action = answerlist[0][verb_index][0]
+                        for noun in answerlist[0]:
                             if noun[2] == 'dobj' and noun[1] == verb_index + 1:
                                 action += noun[0]
                                 break
@@ -163,13 +164,13 @@ for cluster in clustered_sentences:
         actions.append(actionlist)
 
         if attrindex is not None:
-            for dependency in answer[0][0]:
+            for dependency in answerlist[0]:
                 if dependency[1] == attrindex and dependency[2] in ['amod', 'assmod']:
                     if dependency[0] not in attrs:
                         attrs.append(dependency[0])
 
     # 输出所有句子的动作链
-    print("*************输出描述'"+target+"'操作中所有句子的动作链*************")
+    print("*************输出描述'" + target + "'操作中所有句子的动作链*************")
     for action in actions:
         print(action)
 
@@ -183,7 +184,7 @@ for cluster in clustered_sentences:
                 break
         if flag == True:
             break
-    print("*************输出描述'"+target+"'操作中所有句子描述对象的属性值*************")
+    print("*************输出描述'" + target + "'操作中所有句子描述对象的属性值*************")
     if attrs:
         # 输出所有句子描述对象的属性值
         print(attrs)
