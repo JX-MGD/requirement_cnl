@@ -3,7 +3,7 @@ import split
 import re
 
 model = FastHan()
-text = ("要编辑文件，用户必须打开文件，进行更改，保存文件，然后关闭文件;用户必须进行打开文件，更改文件，保存文件，然后关闭文件,以便编辑文件;用户必须打开文件，更改文件，保存文件"
+text = ("管理人员必须进行打开文件，更改文件，保存文件，然后关闭文件,以便编辑文件;用户必须打开文件，更改文件，保存文件"
         "，然后关闭文件,以编辑文件;为了对文件进行编辑，用户必须打开文件，更改文件，保存文件，然后关闭文件;为实现文件编辑操作，用户必须打开文件，更改文件，保存文件"
         "，然后关闭文件;要编辑文件，用户必须打开文件，更改文件，然后关闭文件;为了退出应用程序，用户必须按下红色按钮;为了退出应用程序，用户必须按下红色的按钮;为了退出应用程序，用户必须按下方形的按钮;")
 # text = "为了退出应用程序，用户必须按下红色按钮;为了退出应用程序，用户必须按下红色的按钮;为了退出应用程序，用户必须按下方形的按钮;"
@@ -44,8 +44,8 @@ for idx, sentence in enumerate(sentences, start=1):
 print(matches)
 from collections import defaultdict
 
-# 遍历 matches 列表，使用哈希表记录每个目标对应的句子索引
-# 创建一个默认字典
+# 遍历 matches 列表，使用字典记录每个目标对应的句子索引
+# 创建一个默认字典，合并相同目标的句子索引
 target_sentences = defaultdict(list)
 for match in matches:
     target = match["target"]
@@ -55,7 +55,7 @@ for match in matches:
 # 存储相同目标的句子索引的列表的列表
 clustered_sentences = []
 
-# 遍历哈希表，找到所有具有相同目标的句子，并保存到列表中
+# 遍历字典，找到所有具有相同目标的句子，并保存到列表中
 for target, sentence_indices in target_sentences.items():
     if len(sentence_indices) > 1:
         clustered_sentences.append({"target": target, "sentence_indices": sentence_indices})
@@ -101,15 +101,20 @@ for cluster in clustered_sentences:
     actions = []
     # 所有句子的属性都由attrs保存
     attrs = []
+    # 所有句子的执行者由operators保存
+    operators = []
     root_position = None
     answer = model(combined_sentence, target="Parsing")
+    # for answers in answer:
+    #     print(answers)
 
     for answerlist, sentence_index in zip(answer, sentence_indices):
         # 处理相应的逻辑
 
-        # 找到root的位置和属性的位置(attrindex)
         attrindex = None
+        operator = None
         for dependency in answerlist[0]:
+            # 找到root的位置和属性的位置(attrindex)
             if 'root' in dependency:
                 if dependency[0] != '进行':
                     root_position = answerlist[0].index(dependency) + 1
@@ -119,6 +124,13 @@ for cluster in clustered_sentences:
             # 仅做测试,属性列表暂且为按钮
             if '按钮' in dependency:
                 attrindex = answerlist[0].index(dependency) + 1
+            # 找到操作链的执行者
+            if 'nsubj' in dependency or 'xsubj' in dependency:
+                operator = dependency[0]
+                # 若前面有nn连词则一并加上
+                if answerlist[0][answerlist[0].index(dependency)-1][2] == 'nn':
+                    operator = answerlist[0][answerlist[0].index(dependency)-1][0]+operator
+                operators.append(operator)
 
         # 当前所在句子的动作链由actionlist保存
         actionlist = []
@@ -174,7 +186,7 @@ for cluster in clustered_sentences:
     for action in actions:
         print(action)
 
-    # 检查每个列表是否与其他列表相同(动作链引发的不一致性问题)
+    # 1.检查每个列表是否与其他列表相同(动作链引发的不一致性问题)
     flag = False
     for i, list1 in enumerate(actions):
         for j, list2 in enumerate(actions[i + 1:], start=i + 1):
@@ -188,7 +200,7 @@ for cluster in clustered_sentences:
     if attrs:
         # 输出所有句子描述对象的属性值
         print(attrs)
-        # 检查描述对象属性值引发的可能不一致性问题
+        # 2.检查描述对象属性值引发的可能不一致性问题
         flag = False
         for attr in attrs:
             print("'按钮'对象是否具有可以描述'" + attr + "'值的属性")
@@ -198,4 +210,8 @@ for cluster in clustered_sentences:
     else:
         print("无属性值")
 
-# text="为实现文件编辑操作，用户必须打开文件，进行更改，保存文件(或将文件另存为)，然后关闭文件"
+    # 3.检测动作链的执行者
+    print("*************输出描述'" + target + "'操作中所有句子的执行者*************")
+    print(operators)
+    if len(set(operators)) > 1:
+        print(f"警告：当前{target}描述检测到多个执行者！分别为: {', '.join(set(operators))}")
